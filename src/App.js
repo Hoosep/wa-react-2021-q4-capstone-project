@@ -7,8 +7,8 @@ import Footer from 'Layouts/Footer';
 function App() {
   return (
     <>
-    <Header />
-    <Footer />
+      <Header />
+      <Footer />
     </>
   );
 }

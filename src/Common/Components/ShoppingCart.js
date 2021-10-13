@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-
 const ShoppingCartStyled = styled.div`
   padding-right: 1rem;
 
@@ -29,14 +28,11 @@ const ShoppingCartStyled = styled.div`
   }
 `;
 
-const ShoppingCart = () => {
-
-  return (
-    <ShoppingCartStyled>
-      <i className="fas fa-shopping-bag"></i>
-      <div className="badge">10</div>
-    </ShoppingCartStyled>
-  )
-};
+const ShoppingCart = () => (
+  <ShoppingCartStyled>
+    <i className="fas fa-shopping-bag" />
+    <div className="badge">10</div>
+  </ShoppingCartStyled>
+);
 
 export default ShoppingCart;

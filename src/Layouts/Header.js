@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-
 // Own components
 import SearchInput from 'Common/Components/SearchInput';
 import ShoppingCart from 'Common/Components/ShoppingCart';
@@ -67,28 +66,24 @@ const HeaderStyled = styled.header`
 
 `;
 
-
-const Header = () => {
-
-  return (
-    <HeaderStyled>
-      <div className="navbar-container">
-        <div className="navbar-item">
-          <a className="navbar-company" href="/">
-            <img className="logo" src={Logo} alt="Logo" />
-          </a>
-          <nav className="navbar-menu">
-            <a href="/">Home</a>
-            <a href="/">SALE</a>
-          </nav>
-        </div>
-        <div className="navbar-item item-right">
-          <ShoppingCart />
-          <SearchInput />
-        </div>
+const Header = () => (
+  <HeaderStyled>
+    <div className="navbar-container">
+      <div className="navbar-item">
+        <a className="navbar-company" href="/">
+          <img className="logo" src={Logo} alt="Logo" />
+        </a>
+        <nav className="navbar-menu">
+          <a href="/">Home</a>
+          <a href="/">SALE</a>
+        </nav>
       </div>
-    </HeaderStyled>
-  )
-};
+      <div className="navbar-item item-right">
+        <ShoppingCart />
+        <SearchInput />
+      </div>
+    </div>
+  </HeaderStyled>
+);
 
 export default Header;
