@@ -1,89 +1,66 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
 
 // Own components
 import SearchInput from 'Common/Components/SearchInput';
 import ShoppingCart from 'Common/Components/ShoppingCart';
 
+// Own custom hooks
+import useWindowWidthSize from 'Common/CustomHooks/useWindowWidthSize';
+
+// Own Styles
+import { HeaderStyled } from 'Styles/Layouts/Header';
+
 // Own assets
 import Logo from 'Common/Images/logo3.png';
 
-const HeaderStyled = styled.header`
-  display: flex;
-  background-color: #fff;
-  height: 4.5rem;
-  box-sizing: border-box;
-  width: 100%;
-  box-shadow: 0 1px 2px 0 rgb(0 0 0/10%);
-  padding: 0.5rem 5rem;
+const Header = () => {
+  const [smallScreen, setSmallScreen] = useState(false);
+  const [navVisible, setNavVisible] = useState(false);
+  const widthDevice = useWindowWidthSize();
 
-  .navbar-container {
-    align-items: stretch;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    width: 100%;
-  }
+  useEffect(() => {
+    if (widthDevice > 768) setSmallScreen(false);
+    else setSmallScreen(true);
+  }, [widthDevice]);
 
-  .navbar-item {
-    align-items: center;
-    display: flex;
-    flex: 1 1 auto;
+  useEffect(() => {
+    console.log('s', smallScreen);
+  });
 
-    .navbar-menu {
-      a {
-        width: 100%;
-        text-decoration: none;
-        text-transform: uppercase;
-        font-weight: 300;
-        font-size: 0.813rem;
-        letter-spacing: 0.025rem;
-        padding: 0 1rem;
+  const toggleNav = () => setNavVisible(!navVisible);
 
-        &:hover {
-          font-weight: bold;
-        }
-        &:visited {
-          color: unset;
-        }
-      }
-    }
-
-    &.item-right {
-      justify-content: flex-end;
-    }
-  }
-
-  .navbar-company {
-    align-items: center;
-    height: 2rem;
-    margin-right: 4rem;
-
-    .logo {
-      height: 100%;
-    }
-  }
-
-`;
-
-const Header = () => (
-  <HeaderStyled>
-    <div className="navbar-container">
-      <div className="navbar-item">
-        <a className="navbar-company" href="/">
-          <img className="logo" src={Logo} alt="Logo" />
-        </a>
-        <nav className="navbar-menu">
-          <a href="/">Home</a>
-          <a href="/">SALE</a>
-        </nav>
+  return (
+    <HeaderStyled>
+      <div className="navbar-container">
+        <div className="navbar-item">
+          <a className="navbar-company" href="/">
+            <img className="logo" src={Logo} alt="Logo" />
+          </a>
+          <nav className={navVisible ? 'navbar-menu active' : 'navbar-menu'}>
+            <div className="navbar-menu-item">
+              <a href="/">Home</a>
+            </div>
+            <div className="navbar-menu-item">
+              <a href="/">SALE</a>
+            </div>
+          </nav>
+        </div>
+        <div className="navbar-item item-right">
+          <ShoppingCart />
+          <SearchInput />
+        </div>
+        <div onClick={toggleNav} aria-hidden="true" className="navbar-item menu-icon">
+          {
+            navVisible ? (
+              <i className="fas fa-times" />
+            ) : (
+              <i className="fas fa-bars" />
+            )
+          }
+        </div>
       </div>
-      <div className="navbar-item item-right">
-        <ShoppingCart />
-        <SearchInput />
-      </div>
-    </div>
-  </HeaderStyled>
-);
+    </HeaderStyled>
+  );
+};
 
 export default Header;
