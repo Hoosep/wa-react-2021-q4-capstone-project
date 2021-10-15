@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 export const SliderStyled = styled.div`
   width: 100%;
-  height: 100%;
+  height: calc(100% - 7.5rem);
+  max-height: 100%;
   display: flex;
   flex-direction: column!important;
   background-color: transparent;
