@@ -3,10 +3,24 @@ import React from 'react';
 import styled from 'styled-components';
 
 export const Title = styled.h1`
-    color: rgb(33, 33, 33);
+    ${(props) => props.primary && `
+        color: rgb(33, 33, 33);
+    `}
+    ${(props) => props.secondary && `
+        color: #FFFFFF;
+    `}
     font-family: 'Titillium Web',sans-serif;
     font-weight: 200;
-    margin-bottom: 0.2rem;
+    margin-top: 0;
+    ${(props) => props.marginBottom === 'sm' && `
+        margin-bottom: 1.2rem;
+    `}
+    ${(props) => props.marginBottom === 'md' && `
+        margin-bottom: 1.8rem;
+    `}
+    ${(props) => props.marginBottom === 'lg' && `
+        margin-bottom: 2.2rem;
+    `}
     letter-spacing: -2px;
     line-height: 1;
     text-align: left;

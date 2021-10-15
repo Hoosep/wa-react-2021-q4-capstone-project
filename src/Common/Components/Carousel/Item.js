@@ -23,22 +23,17 @@ const Item = (props) => {
     const el = itemRef.current;
     const r = el.getBoundingClientRect();
 
-    // console.log('r', r);
     setX(event.clientX - (r.left + Math.floor(r.width / 2)));
     setY(event.clientY - (r.top + Math.floor(r.height / 2)));
-    // el.style.setProperty('--x', event.clientX - (r.left + Math.floor(r.width / 2)));
-    // el.style.setProperty('--y', event.clientY - (r.top + Math.floor(r.height / 2)));
   };
 
   const handleMouseLeave = (event) => {
     setX(0);
     setY(0);
-    // itemRef.current.style.setProperty('--x', 0);
-    // itemRef.current.style.setProperty('--y', 0);
   };
 
   const handleSlideClick = (event) => {
-    console.log(props.slide.index);
+    console.log('hello');
     props.handleSlideClick(props.slide.index);
   };
 
@@ -67,7 +62,6 @@ const Item = (props) => {
       </div>
       <article className="slide-content">
         <h2 className="slide-headline">{headline}</h2>
-        {/* <button type="button" className="slide-action btn">{button}</button> */}
       </article>
     </CarouselItemStyled>
   );

@@ -4,6 +4,13 @@ const fadeIn = keyframes`
   from { opacity: 0 }
   to   { opacity: 1 }
 `;
+
+export const CarouselBrackground = styled.div`
+  background-color: #101118;
+  padding: 3rem 0;
+  overflow-x: hidden;
+`;
+
 export const CarouselStyled = styled.div`
   margin: 0 auto;
   position: relative;
@@ -34,6 +41,7 @@ export const CarouselItemStyled = styled.li`
   display: flex;
   flex: 1;
   flex-direction: column;
+  width: 70vmin;
   height: 70vmin;
   justify-content: center;
   margin: 0 4vmin;
@@ -43,7 +51,6 @@ export const CarouselItemStyled = styled.li`
   transition: 
     opacity calc(600ms / 2) cubic-bezier(0.25, 0.46, 0.45, 0.84),
     transform calc(600ms / 2) cubic-bezier(0.25, 0.46, 0.45, 0.84);
-  width: 70vmin;
   z-index: 1;
 
   &.slide-next,

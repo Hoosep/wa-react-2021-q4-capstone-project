@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 // Own components
 import SearchInput from 'Common/Components/SearchInput';
 import ShoppingCart from 'Common/Components/ShoppingCart';
-
-// Own custom hooks
-import useWindowWidthSize from 'Common/CustomHooks/useWindowWidthSize';
 
 // Own Styles
 import { HeaderStyled } from 'Styles/Layouts/Header';
@@ -14,18 +11,7 @@ import { HeaderStyled } from 'Styles/Layouts/Header';
 import Logo from 'Common/Images/logo3.png';
 
 const Header = () => {
-  const [smallScreen, setSmallScreen] = useState(false);
   const [navVisible, setNavVisible] = useState(false);
-  const widthDevice = useWindowWidthSize();
-
-  useEffect(() => {
-    if (widthDevice > 768) setSmallScreen(false);
-    else setSmallScreen(true);
-  }, [widthDevice]);
-
-  useEffect(() => {
-    console.log('s', smallScreen);
-  });
 
   const toggleNav = () => setNavVisible(!navVisible);
 
