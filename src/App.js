@@ -1,17 +1,14 @@
 import React from 'react';
 
 // Own components
-import Header from 'Layouts/Header';
-import Footer from 'Layouts/Footer';
-import Slider from 'Common/Components/Slider';
+import MainLayout from 'Layouts/MainLayout';
+import Home from 'Pages/Home';
 
 function App() {
   return (
-    <>
-      <Header />
-      <Slider />
-      <Footer />
-    </>
+    <MainLayout>
+      <Home />
+    </MainLayout>
   );
 }
 

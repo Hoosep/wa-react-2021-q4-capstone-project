@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
 
 // Mocks
 import FeaturedBannersData from 'mocks/en-us/featured-banners.json';
@@ -11,21 +10,8 @@ import Slide from 'Common/Components/Slider/Slide';
 // Own hooks
 import useInterval from 'Common/CustomHooks/useInterval';
 
-const SliderStyled = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column!important;
-  background-color: gray;
-
-  .flex-eight {
-    flex: 8;
-  }
-
-  .container-slider {
-    position: relative;
-  }
-`;
+// Own styles
+import { SliderStyled } from 'Styles/Slider';
 
 const Slider = () => {
   const [activeIndex, setActiveIndex] = useState(0);
