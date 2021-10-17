@@ -57,7 +57,8 @@ export const HeaderStyled = styled.header`
   margin-right: 4rem;
 
     .logo {
-      height: 100%;
+      max-height: 100%;
+      width: 45px;
     }
   }
 

@@ -104,7 +104,7 @@ export const SlideStyled = styled.div`
     }
   }
 
-  @media (max-width: 425px) {
+  @media (max-width: 550px) {
     .slide-content {
       top: 0.41rem;
       width: 100%;
