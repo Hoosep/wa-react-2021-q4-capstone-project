@@ -3,19 +3,19 @@ import React, { useState, useEffect } from 'react';
 
 // Mocks
 import CategoriesMock from 'mocks/en-us/product-categories.json';
+import ProductsMock from 'mocks/en-us/featured-products.json';
 
 import Slider from 'Common/Components/Slider';
-import { Title, Paragraph } from 'Styles/Typography';
-import Container from 'Styles/Layouts/Container';
-import Row from 'Styles/Layouts/Row';
-import Col from 'Styles/Layouts/Col';
 import Carousel from 'Common/Components/Carousel';
+import Products from 'Common/Components/Products';
 
 const Home = () => {
-  const [slideData, setSlideData] = useState([]);
+  const [carouselData, setCarouselData] = useState([]);
+  const [featuredProductsData, setFeaturedProductsData] = useState([]);
 
   useEffect(() => {
     const { results: categoriesData } = CategoriesMock;
+    const { results: productsData } = ProductsMock;
 
     const getSlides = categoriesData.map((item, index) => {
       const { id } = item;
@@ -25,13 +25,25 @@ const Home = () => {
         id, headline, src, index,
       };
     });
-    setSlideData(getSlides);
+    setCarouselData(getSlides);
+
+    const getProducts = productsData.map((item) => {
+      const { data, id } = item;
+      const { mainimage, name, price } = data;
+      const { url: imageUrl } = mainimage;
+
+      return {
+        id, name, price, imageUrl,
+      };
+    });
+    setFeaturedProductsData(getProducts);
   }, []);
 
   return (
     <>
       <Slider />
-      <Carousel title="Categories" heading="Example Slider" slides={slideData} />
+      <Carousel title="Categories" heading="Example Slider" slides={carouselData} />
+      <Products title="Featured Products" products={featuredProductsData} />
     </>
   );
 };
