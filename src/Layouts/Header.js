@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // Own components
 import SearchInput from 'Common/Components/SearchInput';
@@ -8,12 +8,19 @@ import ShoppingCart from 'Common/Components/ShoppingCart';
 import { HeaderStyled } from 'Styles/Layouts/Header';
 
 // Own assets
-import Logo from 'Common/Images/logo3.png';
+import Logo from 'Common/Images/logo.png';
 
 const Header = () => {
   const [navVisible, setNavVisible] = useState(false);
 
   const toggleNav = () => setNavVisible(!navVisible);
+
+  useEffect(() => {
+    const element = document.body;
+
+    if (navVisible) element.style.overflowY = 'hidden';
+    else element.style.overflowY = null;
+  }, [navVisible]);
 
   return (
     <HeaderStyled>
