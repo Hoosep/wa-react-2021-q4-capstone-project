@@ -31,7 +31,8 @@ flex-wrap: wrap;
   align-items: center;
   margin-top: auto;
   padding-top: 20px;
-  text-align: center;
+  text-align: left;
+  gap: 1rem;
 
   > * {
     margin: 0;
