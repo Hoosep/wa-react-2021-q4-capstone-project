@@ -33,7 +33,6 @@ const Item = (props) => {
   };
 
   const handleSlideClick = (event) => {
-    console.log('hello');
     props.handleSlideClick(props.slide.index);
   };
 
