@@ -1,13 +1,14 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 
-// Mocks
-import CategoriesMock from 'mocks/en-us/product-categories.json';
-import ProductsMock from 'mocks/en-us/featured-products.json';
+// Services
+import CategoriesServices from 'Services/categories';
+import { FeaturedProducts } from 'Services/products';
 
 import Slider from 'Common/Components/Slider';
 import Carousel from 'Common/Components/Carousel';
 import Products from 'Common/Components/Products';
+import Button from 'Common/Components/Button';
 
 const Home = (props) => {
   const { onChangePage } = props;
@@ -15,8 +16,8 @@ const Home = (props) => {
   const [featuredProductsData, setFeaturedProductsData] = useState([]);
 
   useEffect(() => {
-    const { results: categoriesData } = CategoriesMock;
-    const { results: productsData } = ProductsMock;
+    const { results: categoriesData } = CategoriesServices;
+    const { results: productsData } = FeaturedProducts;
 
     const getSlides = categoriesData.map((item, index) => {
       const { id } = item;
