@@ -15,6 +15,9 @@ const Products = ({ title, products }) => (
           <div className="product-image">
             <img src={product.imageUrl} alt={product.name} />
           </div>
+          {product.nameCategory && (
+            <div className="product-category">{product.nameCategory}</div>
+          )}
           <div className="product-info">
             <h5>{product.name}</h5>
             <h6>
