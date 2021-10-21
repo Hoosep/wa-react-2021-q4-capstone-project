@@ -25,27 +25,29 @@ flex-wrap: wrap;
   max-height: 50vh;
 }
 
+.product-category {
+  padding-top: 20px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.02rem;
+  font-family: 'Titillium Web', sans-serif;
+  text-align: right;
+}
+
 .product-info {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: auto;
-  padding-top: 20px;
+  padding-top: 5px;
   text-align: left;
   gap: 1rem;
 
   > * {
     margin: 0;
-  }
-
-  > h5 {
-    font-family: 'Titillium Web',sans-serif;
+    font-family: 'Mukta',sans-serif;
+    font-weight: 200;
     font-size: 1rem;
-  }
-
-  > h6 {
-    font-weight: normal;
-    font-size: 0.75rem;
   }
 }
 
