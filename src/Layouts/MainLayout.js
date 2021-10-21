@@ -5,11 +5,11 @@ import Header from 'Layouts/Header';
 import Footer from 'Layouts/Footer';
 
 const MainLayout = (props) => {
-  const { children } = props;
+  const { children, onChangePage } = props;
 
   return (
     <>
-      <Header />
+      <Header onChangePage={onChangePage} />
       {children}
       <Footer />
     </>

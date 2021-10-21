@@ -9,7 +9,8 @@ import Slider from 'Common/Components/Slider';
 import Carousel from 'Common/Components/Carousel';
 import Products from 'Common/Components/Products';
 
-const Home = () => {
+const Home = (props) => {
+  const { onChangePage } = props;
   const [carouselData, setCarouselData] = useState([]);
   const [featuredProductsData, setFeaturedProductsData] = useState([]);
 
@@ -39,11 +40,17 @@ const Home = () => {
     setFeaturedProductsData(getProducts);
   }, []);
 
+  const handleClickPage = (e, page) => {
+    e.preventDefault();
+    onChangePage(page);
+  };
+
   return (
     <>
       <Slider />
       <Carousel title="Categories" heading="Example Slider" slides={carouselData} />
       <Products title="Featured Products" products={featuredProductsData} />
+      <Button align="center" spaceBottom="lg" onClick={(e) => handleClickPage(e, 'productList')}>View all products</Button>
     </>
   );
 };
