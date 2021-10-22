@@ -5,6 +5,7 @@ export const ProductListStyled = styled.div`
 
   & .content-product-list {
     overflow-y: auto;
+    flex: 1;
     .container-product-list {
       width: 90%;
       margin: 0 auto;
@@ -14,5 +15,12 @@ export const ProductListStyled = styled.div`
 
   @media (max-width: 768px) {
     flex-direction: column-reverse;
+
+    & .content-product-list {
+      .outer-container-loader {
+        width: 90%;
+        top: 35%;
+      }
+    }
   }
 `;

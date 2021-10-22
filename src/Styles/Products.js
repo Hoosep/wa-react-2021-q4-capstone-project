@@ -1,12 +1,33 @@
 import styled from 'styled-components';
 
 export const ProductsStyled = styled.div`
-padding: 2rem;
+  padding: 2rem;
+
+  .products-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    
+    h1 {
+      margin: 0;
+    }
+  }
+
+  @media (max-width: 425px) {
+    .products-header {
+      flex-direction: column;
+
+      h1 {
+        margin-bottom: 2rem;
+      }
+    }
+  }
 `;
 
 export const ProductsWrapper = styled.section`
 display: flex;
 flex-wrap: wrap;
+margin-bottom: 2rem;
 
 .product-card {
   display: flex;
@@ -51,7 +72,7 @@ flex-wrap: wrap;
   }
 }
 
-@media (max-width: 920px) {
+@media (max-width: 1200px) {
   .product-card {
     flex: 1 21%;
   }
