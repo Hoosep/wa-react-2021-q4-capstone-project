@@ -3,12 +3,15 @@ import React from 'react';
 
 // Own styles
 import { ProductsStyled, ProductsWrapper } from 'Styles/Products';
-// Own components
 import { Title } from 'Styles/Typography';
+
+// Own components
+import Pagination from './Pagination';
 
 const Products = ({ title, products }) => (
   <ProductsStyled>
     <Title>{title}</Title>
+    <Pagination />
     <ProductsWrapper>
       {products.map((product) => (
         <div className="product-card" key={product.id}>

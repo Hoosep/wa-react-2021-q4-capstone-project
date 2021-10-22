@@ -85,7 +85,7 @@ const ProductList = () => {
       />
       <div className="content-product-list">
         <div className="container-product-list">
-          <Products products={products} title="Catalog" />
+          <Products products={products} title="Products" />
         </div>
       </div>
     </ProductListStyled>
