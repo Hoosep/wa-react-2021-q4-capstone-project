@@ -82,6 +82,17 @@ const SidebarStyled = styled.div`
 
     }
   }
+  @media (max-width: 375px) {
+    & ul {
+      padding: 0 0.15rem;
+
+      li {
+        padding: 0.5rem 0;
+        font-size: 0.65rem;
+      }
+
+    }
+  }
 `;
 
 export default SidebarStyled;

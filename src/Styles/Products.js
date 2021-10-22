@@ -57,6 +57,12 @@ flex-wrap: wrap;
   }
 }
 
+@media (max-width: 768px) {
+  .product-card {
+    flex: 1 40%;
+  }
+}
+
 @media (max-width: 600px) {
   .product-card {
     flex: 1 46%;
