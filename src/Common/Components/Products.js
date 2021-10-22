@@ -10,8 +10,10 @@ import Pagination from './Pagination';
 
 const Products = ({ title, products }) => (
   <ProductsStyled>
-    <Title>{title}</Title>
-    <Pagination />
+    <div className="products-header">
+      <Title>{title}</Title>
+      <Pagination />
+    </div>
     <ProductsWrapper>
       {products.map((product) => (
         <div className="product-card" key={product.id}>
@@ -31,6 +33,7 @@ const Products = ({ title, products }) => (
         </div>
       ))}
     </ProductsWrapper>
+    <Pagination />
   </ProductsStyled>
 );
 
