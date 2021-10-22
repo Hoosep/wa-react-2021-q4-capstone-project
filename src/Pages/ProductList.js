@@ -7,12 +7,14 @@ import { ProductListStyled } from 'Styles/ProductsList';
 // Own components
 import Sidebar from 'Common/Components/Sidebar';
 import Products from 'Common/Components/Products';
+import Loader from 'Common/Components/Loader';
 
 // Services
 import CategoriesServices from 'Services/categories';
 import { ProductsServices } from 'Services/products';
 
 const ProductList = () => {
+  const [loading, setLoading] = useState(true);
   const [itemsSidebar, setItemsSidebar] = useState([]);
   const [products, setProducts] = useState([]);
   const productListRef = useRef();
@@ -33,7 +35,7 @@ const ProductList = () => {
 
   const getProducts = (itemsActived) => {
     const { results: productsData } = ProductsServices;
-
+    setLoading(true);
     const productsFormat = productsData.map((item) => {
       const { data, id } = item;
       const {
@@ -55,6 +57,7 @@ const ProductList = () => {
       return true;
     });
     setProducts(productsFormat);
+    setLoading(false);
   };
 
   const handleChangeItemsActivated = (itemsActived) => {
@@ -74,7 +77,9 @@ const ProductList = () => {
     });
     setItemsSidebar(getCategories);
 
-    getProducts();
+    setTimeout(() => {
+      getProducts();
+    }, 2000);
   }, []);
 
   return (
@@ -85,7 +90,9 @@ const ProductList = () => {
       />
       <div className="content-product-list">
         <div className="container-product-list">
-          <Products products={products} title="Products" />
+          {!loading
+          && <Products products={products} title="Products" />}
+          {loading && <Loader />}
         </div>
       </div>
     </ProductListStyled>
