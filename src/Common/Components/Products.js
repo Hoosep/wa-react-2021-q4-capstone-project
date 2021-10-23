@@ -8,11 +8,11 @@ import { Title } from 'Styles/Typography';
 // Own components
 import Pagination from './Pagination';
 
-const Products = ({ title, products }) => (
+const Products = ({ title, products, pagination }) => (
   <ProductsStyled>
     <div className="products-header">
       <Title>{title}</Title>
-      <Pagination />
+      {pagination && <Pagination />}
     </div>
     <ProductsWrapper>
       {products.map((product) => (
@@ -33,7 +33,7 @@ const Products = ({ title, products }) => (
         </div>
       ))}
     </ProductsWrapper>
-    <Pagination />
+    {pagination && <Pagination />}
   </ProductsStyled>
 );
 

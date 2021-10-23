@@ -91,7 +91,7 @@ const ProductList = () => {
       <div className="content-product-list">
         <div className="container-product-list">
           {!loading
-          && <Products products={products} title="Products" />}
+          && <Products products={products} title="Products" pagination />}
           {loading && <Loader />}
         </div>
       </div>
