@@ -13,6 +13,7 @@ import Logo from 'Common/Images/logo.png';
 const Header = (props) => {
   const { onChangePage } = props;
   const [navVisible, setNavVisible] = useState(false);
+  const [pageActive, setPageActive] = useState(null);
 
   const toggleNav = () => setNavVisible(!navVisible);
 
@@ -26,6 +27,7 @@ const Header = (props) => {
   const handleClickPage = (e, page) => {
     e.preventDefault();
     onChangePage(page);
+    setPageActive(page);
     setNavVisible(false);
   };
 
@@ -38,10 +40,10 @@ const Header = (props) => {
           </a>
           <nav className={navVisible ? 'navbar-menu active' : 'navbar-menu'}>
             <div className="navbar-menu-item">
-              <a href="/" onClick={(e) => handleClickPage(e, 'home')}>Home</a>
+              <a href="/" onClick={(e) => handleClickPage(e, 'home')} className={`${pageActive === 'home' ? 'active' : ''}`}>Home</a>
             </div>
             <div className="navbar-menu-item">
-              <a href="/" onClick={(e) => handleClickPage(e, 'productList')}>Products</a>
+              <a href="/" onClick={(e) => handleClickPage(e, 'productList')} className={`${pageActive === 'productList' ? 'active' : ''}`}>Products</a>
             </div>
           </nav>
         </div>

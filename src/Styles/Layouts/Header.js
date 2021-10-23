@@ -10,35 +10,39 @@ export const HeaderStyled = styled.header`
   padding: 0.5rem 5rem;
 
   .navbar-container {
-  align-items: stretch;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  width: 100%;
+    align-items: stretch;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
   }
 
+
   .navbar-item {
-  align-items: center;
-  display: flex;
-  flex: 1 1 auto;
+    align-items: center;
+    display: flex;
+    flex: 1 1 auto;
 
     .navbar-menu {
       display: flex;
       a {
-      width: 100%;
-      text-decoration: none;
-      text-transform: uppercase;
-      font-weight: 300;
-      font-size: 0.813rem;
-      letter-spacing: 0.025rem;
-      padding: 0 1rem;
+        width: 100%;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-weight: 300;
+        font-size: 0.813rem;
+        letter-spacing: 0.025rem;
+        padding: 0 1rem;
 
-      &:hover {
-        font-weight: bold;
-      }
-      &:visited {
-        color: unset;
-      }
+        &.active {
+          font-weight: bold;
+        }
+        &:hover {
+          font-weight: bold;
+        }
+        &:visited {
+          color: unset;
+        }
       }
     }
 
@@ -52,9 +56,9 @@ export const HeaderStyled = styled.header`
   }
 
   .navbar-company {
-  align-items: center;
-  height: 2rem;
-  margin-right: 4rem;
+    align-items: center;
+    height: 2rem;
+    margin-right: 4rem;
 
     .logo {
       max-height: 100%;
