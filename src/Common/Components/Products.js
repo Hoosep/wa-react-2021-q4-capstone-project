@@ -3,18 +3,26 @@ import React from 'react';
 
 // Own styles
 import { ProductsStyled, ProductsWrapper } from 'Styles/Products';
-// Own components
 import { Title } from 'Styles/Typography';
 
-const Products = ({ title, products }) => (
+// Own components
+import Pagination from './Pagination';
+
+const Products = ({ title, products, pagination }) => (
   <ProductsStyled>
-    <Title>{title}</Title>
+    <div className="products-header">
+      <Title>{title}</Title>
+      {pagination && <Pagination />}
+    </div>
     <ProductsWrapper>
       {products.map((product) => (
         <div className="product-card" key={product.id}>
           <div className="product-image">
             <img src={product.imageUrl} alt={product.name} />
           </div>
+          {product.nameCategory && (
+            <div className="product-category">{product.nameCategory}</div>
+          )}
           <div className="product-info">
             <h5>{product.name}</h5>
             <h6>
@@ -25,6 +33,7 @@ const Products = ({ title, products }) => (
         </div>
       ))}
     </ProductsWrapper>
+    {pagination && <Pagination />}
   </ProductsStyled>
 );
 

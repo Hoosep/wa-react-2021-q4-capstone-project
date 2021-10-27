@@ -121,4 +121,20 @@ export const SlideStyled = styled.div`
       font-size: 1rem;
     }
   }
+
+  @media (max-width: 375px) {
+    .slide-content {
+      top: 0rem;
+    }
+    .slide-content > span.content-headline {
+      font-size: 1.7rem;
+      line-height: 27px;
+      padding: 0 12px 15px;
+    }
+
+    .slide-content > span.content-description {
+      padding: 0 15px;
+      font-size: 0.78rem;
+    }
+  }
 `;
