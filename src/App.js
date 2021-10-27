@@ -5,9 +5,12 @@ import React, { useState } from 'react';
 import MainLayout from 'Layouts/MainLayout';
 import Home from 'Pages/Home';
 import ProductList from 'Pages/ProductList';
+import { useFeaturedBanners } from './utils/hooks/useFeaturedBanners';
 
 function App() {
   const [actualPage, setActualPage] = useState('home');
+  const { data, isLoading } = useFeaturedBanners();
+  console.log(data, isLoading);
 
   const handleChangePage = (page) => {
     setActualPage(page);
