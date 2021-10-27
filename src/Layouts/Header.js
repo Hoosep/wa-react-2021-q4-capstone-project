@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
 
 // Own components
 import SearchInput from 'Common/Components/SearchInput';
@@ -10,8 +11,8 @@ import { HeaderStyled } from 'Styles/Layouts/Header';
 // Own assets
 import Logo from 'Common/Images/logo.png';
 
-const Header = (props) => {
-  const { onChangePage } = props;
+const Header = withRouter((props) => {
+  const { history } = props;
   const [navVisible, setNavVisible] = useState(false);
   const [pageActive, setPageActive] = useState(null);
 
@@ -26,7 +27,7 @@ const Header = (props) => {
 
   const handleClickPage = (e, page) => {
     e.preventDefault();
-    onChangePage(page);
+    history.push(`/${page}`);
     setPageActive(page);
     setNavVisible(false);
   };
@@ -43,7 +44,7 @@ const Header = (props) => {
               <a href="/" onClick={(e) => handleClickPage(e, 'home')} className={`${pageActive === 'home' ? 'active' : ''}`}>Home</a>
             </div>
             <div className="navbar-menu-item">
-              <a href="/" onClick={(e) => handleClickPage(e, 'productList')} className={`${pageActive === 'productList' ? 'active' : ''}`}>Products</a>
+              <a href="/" onClick={(e) => handleClickPage(e, 'products')} className={`${pageActive === 'products' ? 'active' : ''}`}>Products</a>
             </div>
           </nav>
         </div>
@@ -63,6 +64,6 @@ const Header = (props) => {
       </div>
     </HeaderStyled>
   );
-};
+});
 
 export default Header;

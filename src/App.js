@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 // Own components
 import MainLayout from 'Layouts/MainLayout';
@@ -8,19 +9,37 @@ import ProductList from 'Pages/ProductList';
 import { useFeaturedBanners } from './utils/hooks/useFeaturedBanners';
 
 function App() {
-  const [actualPage, setActualPage] = useState('home');
   const { data, isLoading } = useFeaturedBanners();
   console.log(data, isLoading);
 
-  const handleChangePage = (page) => {
-    setActualPage(page);
-  };
-
   return (
-    <MainLayout onChangePage={handleChangePage}>
-      {actualPage === 'home' && <Home onChangePage={handleChangePage} />}
-      {actualPage === 'productList' && <ProductList />}
-    </MainLayout>
+    <BrowserRouter>
+      <Switch>
+        <MainLayout>
+          <Route
+            path="/home"
+            exact
+            render={(props) => (
+              <Home {...props} />
+            )}
+          />
+          <Route
+            path="/products"
+            exact
+            render={(props) => (
+              <ProductList {...props} />
+            )}
+          />
+          <Route
+            path="/"
+            exact
+            render={(props) => (
+              <Home {...props} />
+            )}
+          />
+        </MainLayout>
+      </Switch>
+    </BrowserRouter>
   );
 }
 

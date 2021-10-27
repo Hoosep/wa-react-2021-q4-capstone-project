@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
 
 // Services
 import CategoriesServices from 'Services/categories';
@@ -10,8 +11,9 @@ import Carousel from 'Common/Components/Carousel';
 import Products from 'Common/Components/Products';
 import Button from 'Common/Components/Button';
 
-const Home = (props) => {
-  const { onChangePage } = props;
+const Home = withRouter((props) => {
+  const { history } = props;
+
   const [carouselData, setCarouselData] = useState([]);
   const [featuredProductsData, setFeaturedProductsData] = useState([]);
 
@@ -41,9 +43,9 @@ const Home = (props) => {
     setFeaturedProductsData(getProducts);
   }, []);
 
-  const handleClickPage = (e, page) => {
+  const handleClickPage = (e) => {
     e.preventDefault();
-    onChangePage(page);
+    history.push('/products');
   };
 
   return (
@@ -51,9 +53,9 @@ const Home = (props) => {
       <Slider />
       <Carousel title="Categories" heading="Example Slider" slides={carouselData} />
       <Products title="Featured Products" products={featuredProductsData} />
-      <Button align="center" spaceBottom="lg" onClick={(e) => handleClickPage(e, 'productList')}>View all products</Button>
+      <Button align="center" spaceBottom="lg" onClick={(e) => handleClickPage(e)}>View all products</Button>
     </>
   );
-};
+});
 
 export default Home;
