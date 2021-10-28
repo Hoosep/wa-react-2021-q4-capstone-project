@@ -39,7 +39,7 @@ const Home = withRouter((props) => {
 
   useEffect(() => {
     const { results: productsData } = featuredProducts;
-    console.log('productsd', productsData);
+
     if (productsData && Array.isArray(productsData)) {
       const getProducts = productsData.map((item) => {
         const { data, id } = item;
@@ -63,7 +63,7 @@ const Home = withRouter((props) => {
     <>
       <Slider />
       <Carousel title="Categories" heading="Example Slider" slides={carouselData} />
-      <Products title="Featured Products" products={featuredProductsData} />
+      <Products title="Featured Products" products={featuredProductsData} loading />
       <Button align="center" spaceBottom="lg" onClick={(e) => handleClickPage(e)}>View all products</Button>
     </>
   );

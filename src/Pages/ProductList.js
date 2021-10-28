@@ -1,9 +1,7 @@
+/* eslint-disable no-unused-vars */
 import React, {
   useState, useEffect, useRef, useLayoutEffect,
 } from 'react';
-import {
-  useLocation,
-} from 'react-router-dom';
 
 // Own styles
 import { ProductListStyled } from 'Styles/ProductsList';
@@ -13,13 +11,11 @@ import Products from 'Common/Components/Products';
 import Loader from 'Common/Components/Loader';
 
 // Services
-import CategoriesServices from 'Services/categories';
+import { useCategories } from 'utils/hooks/useCategories';
 import { ProductsServices } from 'Services/products';
 
 const ProductList = () => {
-  const location = useLocation();
-
-  console.log('location', location);
+  const { isLoading: isLoadingCategories, data: categoriesData } = useCategories();
   const [loading, setLoading] = useState(true);
   const [itemsSidebar, setItemsSidebar] = useState([]);
   const [products, setProducts] = useState([]);
@@ -71,18 +67,22 @@ const ProductList = () => {
   };
 
   useEffect(() => {
-    const { results: categoriesData } = CategoriesServices;
+    const { results: categories } = categoriesData;
 
-    const getCategories = categoriesData.map((item) => {
-      const { id } = item;
-      const { name } = item.data;
-      const { url } = item.data.main_image;
-      return {
-        id, name, url,
-      };
-    });
-    setItemsSidebar(getCategories);
+    if (categories && Array.isArray(categories)) {
+      const getCategories = categories.map((item) => {
+        const { id } = item;
+        const { name } = item.data;
+        const { url } = item.data.main_image;
+        return {
+          id, name, url,
+        };
+      });
+      setItemsSidebar(getCategories);
+    }
+  }, [categoriesData]);
 
+  useEffect(() => {
     setTimeout(() => {
       getProducts();
     }, 2000);
