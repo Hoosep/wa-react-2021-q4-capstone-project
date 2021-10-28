@@ -1,0 +1,29 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"editor.codeActionsOnSave": {
+			"source.fixAll.eslint": true, 
+		},
+		"editor.formatOnSave": true,
+		"eslint.alwaysShowStatus": true,
+		"files.autoSave": "onFocusChange",
+		"editor.tabSize": 2,
+		"workbench.editor.languageDetection": true,
+		"editor.renderWhitespace": "trailing",
+		"editor.wordWrap": "bounded",
+		//Esta linea activa la opción de usar emmet en React
+		"emmet.includeLanguages": {
+			"javascript": "javascriptreact",
+			"jsx-sublime-babel-tags": "javascriptreact"
+		},
+	
+		//Esta linea es muy útil, nos permite usar emmet con componentes que no sean HTML.
+		//Por ejemplo un componente de react que escribamos llamado Layout, al darle tab
+		//nos lo mostrará como <Layout></Layout>
+		"emmet.triggerExpansionOnTab": true,
+	},
+}

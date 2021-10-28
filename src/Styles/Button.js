@@ -72,6 +72,9 @@ const ButtonStyled = styled.button`
   ${(props) => (!props.spaceTop && `
     margin-top: 0rem;
   `)}
+  ${(props) => (props.fullWidth && `
+    width: 100%;
+  `)}
   ${(props) => (!props.spaceBottom && `
     margin-top: 0rem;
   `)}

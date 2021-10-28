@@ -7,6 +7,7 @@ import { Title } from 'Styles/Typography';
 
 // Own components
 import Pagination from './Pagination';
+import Button from './Button';
 
 const Products = ({ title, products, pagination }) => (
   <ProductsStyled>
@@ -29,6 +30,9 @@ const Products = ({ title, products, pagination }) => (
               $
               {product.price}
             </h6>
+          </div>
+          <div className="product-purchase">
+            <Button align="center" spaceTop="sm" fullWidth>Add to cart</Button>
           </div>
         </div>
       ))}

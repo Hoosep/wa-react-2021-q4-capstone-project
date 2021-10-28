@@ -1,6 +1,9 @@
 import React, {
   useState, useEffect, useRef, useLayoutEffect,
 } from 'react';
+import {
+  useLocation,
+} from 'react-router-dom';
 
 // Own styles
 import { ProductListStyled } from 'Styles/ProductsList';
@@ -14,6 +17,9 @@ import CategoriesServices from 'Services/categories';
 import { ProductsServices } from 'Services/products';
 
 const ProductList = () => {
+  const location = useLocation();
+
+  console.log('location', location);
   const [loading, setLoading] = useState(true);
   const [itemsSidebar, setItemsSidebar] = useState([]);
   const [products, setProducts] = useState([]);

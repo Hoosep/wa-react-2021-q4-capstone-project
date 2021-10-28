@@ -3,8 +3,10 @@ import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 
 // Services
-import CategoriesServices from 'Services/categories';
-import { FeaturedProducts } from 'Services/products';
+
+// Own hooks
+import { useCategories } from 'utils/hooks/useCategories';
+import { useFeaturedProducts } from 'utils/hooks/useFeaturedProducts';
 
 import Slider from 'Common/Components/Slider';
 import Carousel from 'Common/Components/Carousel';
@@ -16,32 +18,41 @@ const Home = withRouter((props) => {
 
   const [carouselData, setCarouselData] = useState([]);
   const [featuredProductsData, setFeaturedProductsData] = useState([]);
+  const { isLoading: isLoadingFeaturedProducts, data: featuredProducts } = useFeaturedProducts(16);
+  const { isLoading: isLoadingCarousel, data: categoriesData } = useCategories();
 
   useEffect(() => {
-    const { results: categoriesData } = CategoriesServices;
-    const { results: productsData } = FeaturedProducts;
+    const { results: categories } = categoriesData;
 
-    const getSlides = categoriesData.map((item, index) => {
-      const { id } = item;
-      const { name: headline } = item.data;
-      const { url: src } = item.data.main_image;
-      return {
-        id, headline, src, index,
-      };
-    });
-    setCarouselData(getSlides);
+    if (categories && Array.isArray(categories)) {
+      const getSlides = categories.map((item, index) => {
+        const { id } = item;
+        const { name: headline } = item.data;
+        const { url: src } = item.data.main_image;
+        return {
+          id, headline, src, index,
+        };
+      });
+      setCarouselData(getSlides);
+    }
+  }, [categoriesData]);
 
-    const getProducts = productsData.map((item) => {
-      const { data, id } = item;
-      const { mainimage, name, price } = data;
-      const { url: imageUrl } = mainimage;
+  useEffect(() => {
+    const { results: productsData } = featuredProducts;
+    console.log('productsd', productsData);
+    if (productsData && Array.isArray(productsData)) {
+      const getProducts = productsData.map((item) => {
+        const { data, id } = item;
+        const { mainimage, name, price } = data;
+        const { url: imageUrl } = mainimage;
 
-      return {
-        id, name, price, imageUrl,
-      };
-    });
-    setFeaturedProductsData(getProducts);
-  }, []);
+        return {
+          id, name, price, imageUrl,
+        };
+      });
+      setFeaturedProductsData(getProducts);
+    }
+  }, [featuredProducts]);
 
   const handleClickPage = (e) => {
     e.preventDefault();

@@ -10,7 +10,6 @@ import { useFeaturedBanners } from './utils/hooks/useFeaturedBanners';
 
 function App() {
   const { data, isLoading } = useFeaturedBanners();
-  console.log(data, isLoading);
 
   return (
     <BrowserRouter>
@@ -21,6 +20,13 @@ function App() {
             exact
             render={(props) => (
               <Home {...props} />
+            )}
+          />
+          <Route
+            path="/products?category=:category"
+            exact
+            render={(props) => (
+              <ProductList {...props} />
             )}
           />
           <Route

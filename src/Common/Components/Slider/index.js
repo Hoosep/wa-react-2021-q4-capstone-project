@@ -1,14 +1,12 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 
-// Mocks
-import FeaturedBannersData from 'mocks/en-us/featured-banners.json';
-
 // Own components
 import Slide from 'Common/Components/Slider/Slide';
 
 // Own hooks
 import useInterval from 'Common/CustomHooks/useInterval';
+import { useFeaturedBanners } from 'utils/hooks/useFeaturedBanners';
 
 // Own styles
 import { SliderStyled } from 'Styles/Slider';
@@ -16,26 +14,28 @@ import { SliderStyled } from 'Styles/Slider';
 const Slider = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [pictures, setPictures] = useState([]);
-  const [imagesReady, setImagesReady] = useState(false);
+
+  const { isLoading, data: featuredBannersData } = useFeaturedBanners();
 
   useEffect(() => {
-    const { results: bannersData } = FeaturedBannersData;
-    const getPictures = bannersData.map((item) => {
-      const { id } = item;
-      const { title } = item.data;
-      const { url: imageUrl } = item.data.main_image;
-      const [paragraph] = item.data.description;
-      const { text } = paragraph;
-      return {
-        id,
-        title,
-        imageUrl,
-        text,
-      };
-    });
-    setPictures(getPictures);
-    setImagesReady(true);
-  }, []);
+    const { results: bannersData } = featuredBannersData;
+    if (bannersData && Array.isArray(bannersData)) {
+      const getPictures = bannersData.map((item) => {
+        const { id } = item;
+        const { title } = item.data;
+        const { url: imageUrl } = item.data.main_image;
+        const [paragraph] = item.data.description;
+        const { text } = paragraph;
+        return {
+          id,
+          title,
+          imageUrl,
+          text,
+        };
+      });
+      setPictures(getPictures);
+    }
+  }, [featuredBannersData]);
 
   const updateSlide = (e) => {
     let index = activeIndex;
@@ -55,7 +55,7 @@ const Slider = () => {
   return (
     <SliderStyled>
       <div className="flex-eight">
-        {imagesReady ? (
+        {!isLoading ? (
           <div className="slider-container">
             {pictures.map((slide, index) => (
               <Slide
