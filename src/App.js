@@ -6,11 +6,9 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import MainLayout from 'Layouts/MainLayout';
 import Home from 'Pages/Home';
 import ProductList from 'Pages/ProductList';
-import { useFeaturedBanners } from './utils/hooks/useFeaturedBanners';
+import ProductDetail from 'Pages/ProductDetail';
 
 function App() {
-  const { data, isLoading } = useFeaturedBanners();
-
   return (
     <BrowserRouter>
       <Switch>
@@ -27,6 +25,13 @@ function App() {
             exact
             render={(props) => (
               <ProductList {...props} />
+            )}
+          />
+          <Route
+            path="/product/:id"
+            exact
+            render={(props) => (
+              <ProductDetail {...props} />
             )}
           />
           <Route
