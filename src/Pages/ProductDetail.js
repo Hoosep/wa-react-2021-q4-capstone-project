@@ -14,6 +14,7 @@ import {
 import Container from 'Styles/Layouts/Container';
 import Row from 'Styles/Layouts/Row';
 import Col from 'Styles/Layouts/Col';
+import Table from 'Common/Components/Table';
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -71,6 +72,12 @@ const ProductDetail = () => {
                 </Paragraph>
               ))
             }
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Subtitle secondary>Specs</Subtitle>
+            <Table data={dataProduct.data.specs} />
           </Col>
         </Row>
       </Container>
