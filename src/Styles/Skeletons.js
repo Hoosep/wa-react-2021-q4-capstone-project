@@ -6,23 +6,24 @@ const cardHeight = '340px';
 const cardSkeleton = `linear-gradient(lightgrey ${cardHeight}, transparent 0)
 `;
 
-const avatarSize = '32px';
-const avatarPosition = '24px';
-const avatarSkeleton = 'radial-gradient(circle 16px at center, white 99%, transparent 0)';
-
-const titleHeight = '32px';
-const titleWidth = '200px';
-const titlePosition = `${cardPadding} 180`;
+const titleHeight = '44px';
+const titleWidth = '35%';
+const titlePosition = '96% 160px';
 const titleSkeleton = `linear-gradient(white ${titleHeight}, transparent 0)`;
 
-const descLineHeight = '16px';
+const descLineHeight = '27px';
 const descLineSkeleton = `linear-gradient(white ${descLineHeight}, transparent 0)`;
-const descLine1Width = '230px';
-const descLine1Position = `${cardPadding} 242px`;
-const descLine2Width = '180px';
-const descLine2Position = `${cardPadding} 265px`;
+const descLine1Width = '80%';
+const descLine1Position = `${cardPadding} 222px`;
+const descLine2Width = '10%';
+const descLine2Position = '97% 222px';
 
-const footerHeight = '40px';
+const buttonHeight = '50px';
+const buttonWidth = '90%';
+const buttonPosition = '30px 270px';
+const buttonSkeleton = `linear-gradient(white ${titleHeight}, transparent 0)`;
+
+const footerHeight = '0px';
 const footerPosition = `0 calc(${cardHeight} - ${footerHeight})`;
 const footerSkeleton = `linear-gradient(white ${footerHeight}, transparent 0)`;
 
@@ -32,33 +33,30 @@ const blurSize = `${blurWidth} calc(${cardHeight} - ${footerHeight})`;
 const loading = keyframes`
   to {
     background-position:
-      350% 0,        
-      var(--title-position),  
-      var(--desc-line-1-position),
-      var(--desc-line-2-position),
-      var(--avatar-position),
-      var(--footer-position),
+      550% 0,        
+      ${titlePosition},  
+      ${descLine1Position},
+      ${descLine2Position},
+      ${buttonPosition},
+      ${footerPosition},
       0 0
     ;
   }
 `;
 
 export const SkeletonProductsStyled = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 2%;
-  margin: 1%;
-  flex: 1 16%;
   height: ${cardHeight};
+  padding: 2%;
+  margin: 5px;
+  width: 45%;
+  display: inline-block;
 
   &:empty::after {
     content:"";
     display:block;
     width: 100%;
     height: 100%;
-    border-radius:6px;
-    box-shadow: 0 10px 45px rgba(0,0,0, .1);
-
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.25);
 
     background-image:
       linear-gradient(
@@ -70,44 +68,36 @@ export const SkeletonProductsStyled = styled.div`
       ${titleSkeleton},      //title
       ${descLineSkeleton},  //desc1
       ${descLineSkeleton},  //desc2
-      ${avatarSkeleton},     //avatar
+      ${buttonSkeleton},
       ${footerSkeleton},     //footer bar
       ${cardSkeleton}        //card
     ;
 
     background-size:
-      200px calc(340px - 40px),
-      200px 32px,
-      230px 16px,
-      180px 180px,
-      100% 40px,
+      ${blurSize},
+      ${titleWidth} ${titleHeight},
+      ${descLine1Width} ${descLineHeight},
+      ${descLine2Width} ${descLineHeight},
+      ${buttonWidth} ${buttonHeight},
+      100% ${footerHeight},
       100% 100%;
 
     background-position:
-      -150% 0,                      //animation
-      24px 180px,        //title
-      24px 242px,  //desc1
-      24px 265px,  //desc2
-      0 calc(340px - 40px),       //footer bar
-      0 0                           //card
+      -150% 0,
+      ${titlePosition},
+      ${descLine1Position},
+      ${descLine2Position},
+      ${buttonPosition},
+      ${footerPosition},
+      0 0
     ;
 
-
     background-repeat: no-repeat;
-    animation: ${loading} 1.5s infinite;
+    animation: ${loading} 1.6s infinite;
   }
-
-
-
+  
   @media (max-width: 1200px) {
-    flex: 1 21%;
+    width: 100%;
   }
 
-  @media (max-width: 768px) {
-    flex: 1 40%;
-  }
-
-  @media (max-width: 600px) {
-    flex: 1 46%;
-  }
 `;

@@ -10,15 +10,18 @@ import Sidebar from 'Common/Components/Sidebar';
 import Products from 'Common/Components/Products';
 import Loader from 'Common/Components/Loader';
 
-// Services
+// Hooks
+import { useProducts } from 'utils/hooks/useProducts';
 import { useCategories } from 'utils/hooks/useCategories';
-import { ProductsServices } from 'Services/products';
+import { useQueryParams } from 'utils/hooks/useQueryParams';
 
 const ProductList = () => {
   const { isLoading: isLoadingCategories, data: categoriesData } = useCategories();
-  const [loading, setLoading] = useState(true);
+  const [actualPage, setActualPage] = useState(1);
+  const { isLoading: isLoadingProducts, data: productsInfo } = useProducts(12, actualPage);
   const [itemsSidebar, setItemsSidebar] = useState([]);
   const [products, setProducts] = useState([]);
+  const [pagination, setPagination] = useState({});
   const productListRef = useRef();
 
   const calculateHeight = () => {
@@ -35,31 +38,47 @@ const ProductList = () => {
     return () => window.removeEventListener('resize', calculateHeight);
   }, []);
 
-  const getProducts = (itemsActived) => {
-    const { results: productsData } = ProductsServices;
-    setLoading(true);
-    const productsFormat = productsData.map((item) => {
-      const { data, id } = item;
-      const {
-        mainimage, name, price, category,
-      } = data;
-      const { url: imageUrl } = mainimage;
-      const { slug: nameCategory } = category;
+  const changePage = (page) => {
+    setActualPage(page);
+  };
 
-      return {
-        id, name, imageUrl, price, nameCategory,
-      };
-    }).filter((item) => {
-      if (
-        Array.isArray(itemsActived)
-        && itemsActived.length > 0) {
-        return itemsActived.includes(item.nameCategory);
-      }
-      // If we don't items active we filter all.
-      return true;
-    });
-    setProducts(productsFormat);
-    setLoading(false);
+  const getProducts = (itemsActived) => {
+    const { results: productsData } = productsInfo;
+
+    if (productsData && Array.isArray(productsData)) {
+      const {
+        page: currentPage,
+        total_pages: totalPages,
+        total_results_size: totalProducts,
+      } = productsInfo;
+      const productsFormat = productsData.map((item) => {
+        const { data, id } = item;
+        const {
+          mainimage, name, price, category,
+        } = data;
+        const { url: imageUrl } = mainimage;
+        const { slug: nameCategory } = category;
+
+        return {
+          id, name, imageUrl, price, nameCategory,
+        };
+      }).filter((item) => {
+        if (
+          Array.isArray(itemsActived)
+          && itemsActived.length > 0) {
+          return itemsActived.includes(item.nameCategory);
+        }
+        // If we don't items active we filter all.
+        return true;
+      });
+      setProducts(productsFormat);
+      setPagination({
+        currentPage,
+        totalPages,
+        totalProducts,
+        onChange: changePage,
+      });
+    }
   };
 
   const handleChangeItemsActivated = (itemsActived) => {
@@ -83,10 +102,8 @@ const ProductList = () => {
   }, [categoriesData]);
 
   useEffect(() => {
-    setTimeout(() => {
-      getProducts();
-    }, 2000);
-  }, []);
+    getProducts();
+  }, [productsInfo]);
 
   return (
     <ProductListStyled ref={productListRef}>
@@ -96,9 +113,7 @@ const ProductList = () => {
       />
       <div className="content-product-list">
         <div className="container-product-list">
-          {!loading
-          && <Products products={products} title="Products" pagination />}
-          {loading && <Loader />}
+          <Products products={products} title="Products" loading={isLoadingProducts} pagination={pagination} />
         </div>
       </div>
     </ProductListStyled>

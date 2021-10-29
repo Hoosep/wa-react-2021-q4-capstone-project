@@ -21,6 +21,23 @@ const Container = styled.div`
     @media (min-width: 1400px) {
         max-width: 1320px;
     }
+
+    ${(props) => props.paddingVertical && `
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    `}
+    ${(props) => props.paddingHorizontal && `
+        padding-left: 2rem;
+        padding-right: 2rem;
+    `}
+
+    ${(props) => props.secondary && `
+        background-color: #101118;
+    `}
+
+    ${(props) => props.fluid && `
+        max-width: 90%!important;
+    `}
 `;
 
 export default Container;

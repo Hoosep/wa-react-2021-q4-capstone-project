@@ -29,6 +29,10 @@ display: flex;
 flex-wrap: wrap;
 margin-bottom: 2rem;
 
+.fake-link {
+  cursor: pointer;
+}
+
 .product-card {
   display: flex;
   flex-direction: column;

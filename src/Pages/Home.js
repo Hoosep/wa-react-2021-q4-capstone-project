@@ -2,8 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 
-// Services
-
 // Own hooks
 import { useCategories } from 'utils/hooks/useCategories';
 import { useFeaturedProducts } from 'utils/hooks/useFeaturedProducts';
@@ -63,7 +61,7 @@ const Home = withRouter((props) => {
     <>
       <Slider />
       <Carousel title="Categories" heading="Example Slider" slides={carouselData} />
-      <Products title="Featured Products" products={featuredProductsData} loading />
+      <Products title="Featured Products" products={featuredProductsData} loading={isLoadingFeaturedProducts} />
       <Button align="center" spaceBottom="lg" onClick={(e) => handleClickPage(e)}>View all products</Button>
     </>
   );

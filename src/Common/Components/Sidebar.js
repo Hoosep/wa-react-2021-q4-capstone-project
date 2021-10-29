@@ -8,12 +8,13 @@ const Sidebar = ({ items, onChange }) => {
 
   const handleClickItemActive = (name) => {
     let newItemsActivated;
-    if (itemsActived.includes(name)) {
-      newItemsActivated = itemsActived.filter((item) => item !== name);
+    const formatName = name.toLowerCase();
+    if (itemsActived.includes(formatName)) {
+      newItemsActivated = itemsActived.filter((item) => item !== formatName);
     } else {
       newItemsActivated = [
         ...itemsActived,
-        name,
+        formatName,
       ];
     }
     setItemsActived(newItemsActivated);

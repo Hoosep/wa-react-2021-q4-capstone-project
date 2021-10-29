@@ -9,7 +9,6 @@ export function useQueryParams() {
 
   useEffect(() => {
     const { search } = location;
-
     setParams(new URLSearchParams(search));
   }, [location]);
 
