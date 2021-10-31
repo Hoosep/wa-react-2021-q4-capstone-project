@@ -61,6 +61,10 @@ export const ProductsWrapper = styled.section`
     text-align: right;
   }
 
+  .product-purchase {
+    margin-top: auto;
+  }
+
   .product-info {
     display: flex;
     justify-content: space-between;
