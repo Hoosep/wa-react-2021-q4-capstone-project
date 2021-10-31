@@ -28,6 +28,10 @@ const Pagination = ({
     onChange(pageSelected);
   };
 
+  if (!totalItems || totalItems === 0) {
+    return null;
+  }
+
   return (
     <PaginationStyled>
       {

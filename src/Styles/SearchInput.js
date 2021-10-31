@@ -4,8 +4,11 @@ export const SearchInputStyled = styled.div`
   width: fit-content;
   height: fit-content;
   position: relative;
-
-  .input-search{
+  
+  ::-webkit-search-cancel-button{
+    appearance: none;
+  }
+  .input-search {
     height: 30px;
     width: 0px;
     border-style: none;
@@ -17,6 +20,8 @@ export const SearchInputStyled = styled.div`
     transition: all .5s ease-in-out;
     padding-right: 40px;
     color:#000;
+    appearance: none;
+    box-sizing: content-box;
 
     ::placeholder,
     ::-webkit-input-placeholder {
@@ -26,7 +31,7 @@ export const SearchInputStyled = styled.div`
     }
   }
 
-  .btn-search{
+  .btn-search {
     width: 35px;
     height: 35px;
     border-style: none;
@@ -46,14 +51,14 @@ export const SearchInputStyled = styled.div`
     }
   }
 
-  .btn-search:focus ~ .input-search{
+  .btn-search:focus ~ .input-search {
     width: 280px;
     border-radius: 0px;
     background-color: transparent;
     border-bottom:1px solid rgba(255,255,255,.5);
     transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
   }
-  .input-search:focus{
+  .input-search:focus {
     width: 280px;
     border-radius: 0px;
     background-color: transparent;

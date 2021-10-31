@@ -15,6 +15,7 @@ const Row = styled.div`
         padding-left: 12px;
         margin-top: 0
     }
+
 `;
 
 export default Row;

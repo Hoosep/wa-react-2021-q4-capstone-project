@@ -15,10 +15,13 @@ import Container from 'Styles/Layouts/Container';
 import Row from 'Styles/Layouts/Row';
 import Col from 'Styles/Layouts/Col';
 import Table from 'Common/Components/Table';
+import Input from 'Styles/Input';
+import Button from 'Common/Components/Button';
 
 const ProductDetail = () => {
   const { id } = useParams();
   const [imagesSwiper, setImagesSwiper] = useState(null);
+  const [totalItemsCart, setTotalItemsCart] = useState('');
   const { isLoading: isLoadingProduct, data: dataProduct } = useProductID(id);
 
   console.log('dataProduct', dataProduct);
@@ -28,6 +31,11 @@ const ProductDetail = () => {
       setImagesSwiper(images);
     }
   }, [dataProduct]);
+
+  const handleAddCart = (e) => {
+    console.log('e', e.target);
+    setTotalItemsCart(e.target.value);
+  };
 
   return (
     <>
@@ -78,6 +86,14 @@ const ProductDetail = () => {
           <Col>
             <Subtitle secondary>Specs</Subtitle>
             <Table data={dataProduct.data.specs} />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Input size="md" type="number" placeholder="Number" fullWidth onChange={handleAddCart} value={totalItemsCart} />
+          </Col>
+          <Col>
+            <Button align="center" fullWidth filled="primary">Add to Cart</Button>
           </Col>
         </Row>
       </Container>

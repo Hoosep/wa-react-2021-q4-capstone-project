@@ -7,12 +7,19 @@ import MainLayout from 'Layouts/MainLayout';
 import Home from 'Pages/Home';
 import ProductList from 'Pages/ProductList';
 import ProductDetail from 'Pages/ProductDetail';
+import Search from 'Pages/Search';
 
 function App() {
   return (
     <BrowserRouter>
       <Switch>
         <MainLayout>
+          <Route
+            path="/search"
+            render={(props) => (
+              <Search {...props} />
+            )}
+          />
           <Route
             path="/home"
             exact

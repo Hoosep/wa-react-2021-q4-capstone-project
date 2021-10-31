@@ -1,7 +1,9 @@
 import React from 'react';
 
+import { TableStyled } from 'Styles/Table';
+
 const Table = ({ data, title }) => (
-  <table>
+  <TableStyled>
     {title && (
       <thead>
         <tr>
@@ -11,13 +13,13 @@ const Table = ({ data, title }) => (
     )}
     <tbody>
       {data.map((row) => (
-        <tr>
+        <tr key={row.spec_name}>
           <td>{row.spec_name}</td>
           <td>{row.spec_value}</td>
         </tr>
       ))}
     </tbody>
-  </table>
+  </TableStyled>
 );
 
 export default Table;
