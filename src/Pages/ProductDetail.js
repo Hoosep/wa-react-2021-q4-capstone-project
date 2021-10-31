@@ -24,7 +24,6 @@ const ProductDetail = () => {
   const [totalItemsCart, setTotalItemsCart] = useState('');
   const { isLoading: isLoadingProduct, data: dataProduct } = useProductID(id);
 
-  console.log('dataProduct', dataProduct);
   useEffect(() => {
     if (dataProduct && dataProduct.hasOwnProperty('id')) {
       const { data: { images } } = dataProduct;
@@ -33,7 +32,6 @@ const ProductDetail = () => {
   }, [dataProduct]);
 
   const handleAddCart = (e) => {
-    console.log('e', e.target);
     setTotalItemsCart(e.target.value);
   };
 
