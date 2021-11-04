@@ -4,6 +4,7 @@ const PaginationStyled = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex: 1;
 
   .page {
     font-size: 0.75rem;

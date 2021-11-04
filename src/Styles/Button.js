@@ -72,8 +72,11 @@ const ButtonStyled = styled.button`
   ${(props) => (!props.spaceTop && `
     margin-top: 0rem;
   `)}
+  ${(props) => (props.fullWidth && `
+    width: 100%;
+  `)}
   ${(props) => (!props.spaceBottom && `
-    margin-top: 0rem;
+    margin-bottom: 0rem;
   `)}
   ${(props) => (props.spaceTop === 'sm' && `
     margin-top: 1rem;
@@ -92,6 +95,9 @@ const ButtonStyled = styled.button`
   `)}
   ${(props) => (props.spaceBottom === 'lg' && `
     margin-bottom: 2rem;
+  `)}
+  ${(props) => (props.filled === 'primary' && `
+    background-color: white;
   `)}
 `;
 

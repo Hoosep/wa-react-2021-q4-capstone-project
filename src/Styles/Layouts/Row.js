@@ -3,6 +3,7 @@ import styled from 'styled-components';
 const Row = styled.div`
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     margin-left: -12px;
     margin-right: -12px;
     margin-top: 0;
@@ -14,6 +15,7 @@ const Row = styled.div`
         padding-left: 12px;
         margin-top: 0
     }
+
 `;
 
 export default Row;
