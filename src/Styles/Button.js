@@ -58,6 +58,13 @@ const ButtonStyled = styled.button`
     transition: border-color 0s ease-out 0.5s, width 0.25s ease-out 0.5s, height 0.25s ease-out 0.75s;
   }
 
+  &:disabled {
+    background-color: #CECECE;
+    box-shadow: inset 0 0 0 2px #cecece;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
   ${(props) => (props.align === 'center' && `
     margin: 0 auto;
   `)}

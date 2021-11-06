@@ -1,0 +1,60 @@
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useState } from 'react';
+import { withRouter, Link } from 'react-router-dom';
+
+// Own components
+import Container from 'Styles/Layouts/Container';
+import Row from 'Styles/Layouts/Row';
+import Col from 'Styles/Layouts/Col';
+import { Paragraph, Title } from 'Styles/Typography';
+import CartItems from 'Common/Components/CartItems';
+import Button from 'Common/Components/Button';
+
+// Store
+import { useStore } from 'Store/store';
+
+const Search = withRouter((props) => {
+  const [results, setResults] = useState([]);
+  const [state] = useStore();
+  const { cart } = state;
+
+  console.log('state', state);
+  return (
+    <Container paddingVertical paddingHorizontal fluid>
+      <Row>
+        <Col>
+          <Title>
+            Shopping Cart
+          </Title>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          {
+            Array.isArray(cart) && cart.length === 0 && (
+              <Paragraph>
+                Your cart is empty. Go to
+                {' '}
+                <Link to="/products">products page</Link>
+                {' '}
+                to add items to cart.
+              </Paragraph>
+            )
+          }
+          {
+            Array.isArray(cart) && cart.length > 0 && (
+              <CartItems items={cart} />
+            )
+          }
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Button align="right">Proceed to checkout</Button>
+        </Col>
+      </Row>
+    </Container>
+  );
+});
+
+export default Search;

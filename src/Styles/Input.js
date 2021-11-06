@@ -13,7 +13,6 @@ const InputStyled = styled.input`
   ${(props) => (props.fullWidth && `
     width: 100%;
   `)}
-  padding-right: 5px;
 `;
 
 export default InputStyled;

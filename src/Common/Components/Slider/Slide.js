@@ -6,7 +6,7 @@ import { SlideStyled } from 'Styles/Slider';
 
 const Slide = (props) => {
   const {
-    title, imageUrl, index, activeIndex, text,
+    title, imageUrl, index, activeIndex, text, isLoading,
   } = props;
 
   return (
@@ -17,11 +17,16 @@ const Slide = (props) => {
           : 'slide'
       }
     >
-      <img src={imageUrl} alt={title} className="slide-image" />
-      <p className="slide-content">
-        <span className="content-headline">{title}</span>
-        <span className="content-description">{text}</span>
-      </p>
+      {!isLoading && (
+        <>
+
+          <img src={imageUrl} alt={title} className="slide-image" />
+          <p className="slide-content">
+            <span className="content-headline">{title}</span>
+            <span className="content-description">{text}</span>
+          </p>
+        </>
+      )}
     </SlideStyled>
   );
 };

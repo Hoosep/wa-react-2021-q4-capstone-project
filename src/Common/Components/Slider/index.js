@@ -10,6 +10,7 @@ import { useFeaturedBanners } from 'utils/hooks/useFeaturedBanners';
 
 // Own styles
 import { SliderStyled } from 'Styles/Slider';
+import { SkeletonProducts } from 'Common/Components/Skeletons/Products';
 
 const Slider = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -65,10 +66,11 @@ const Slider = () => {
                 imageUrl={slide.imageUrl}
                 title={slide.title}
                 text={slide.text}
+                isLoading={isLoading}
               />
             ))}
           </div>
-        ) : 'Cargando...'}
+        ) : <SkeletonProducts fullWidth />}
       </div>
     </SliderStyled>
   );

@@ -37,6 +37,10 @@ const PaginationStyled = styled.div`
     position: relative;
     font-size: 1rem;
   }
+
+  @media (min-width: 426px) {
+    justify-content: end;
+  }
 `;
 
 export default PaginationStyled;

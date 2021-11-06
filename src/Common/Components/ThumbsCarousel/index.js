@@ -24,7 +24,7 @@ const ThumbsGallery = ({ isLoading, images }) => {
 
   return (
     <div>
-      {isLoading && <SkeletonProducts />}
+      {isLoading && <SkeletonProducts fullWidth />}
       {!isLoading && Array.isArray(images) && (
         <>
           <SwiperStyled style={{ '--swiper-navigation-color': '#fff', '--swiper-pagination-color': '#fff' }} spaceBetween={10} navigation thumbs={{ swiper: thumbsSwiper }} className="mySwiper2">

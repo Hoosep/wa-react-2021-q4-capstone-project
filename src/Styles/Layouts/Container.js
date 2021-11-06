@@ -29,6 +29,11 @@ const Container = styled.div`
     ${(props) => props.paddingHorizontal && `
         padding-left: 2rem;
         padding-right: 2rem;
+
+        @media (max-width: 768px) {
+            padding-left: 0;
+            padding-right: 0;
+        }
     `}
 
     ${(props) => props.secondary && `
