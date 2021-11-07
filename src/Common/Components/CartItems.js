@@ -3,7 +3,7 @@ import React from 'react';
 
 // Store
 import { useStore } from 'Store/store';
-
+import { removeCartTotal, removeProductToCart, removeTotalToBag } from 'Store/reducer';
 // Own styles
 import { CartItemsStyled, CartItemWrapper } from 'Styles/CartItems';
 import { Label } from 'Styles/Typography';
@@ -11,8 +11,16 @@ import { Label } from 'Styles/Typography';
 const Items = ({
   items,
 }) => {
-  const [state] = useStore();
+  const [state, dispatch] = useStore();
   const { cartTotal } = state;
+
+  const handleRemoveItem = (productID, totalItems, productPrice) => {
+    dispatch(removeProductToCart(productID));
+    dispatch(removeTotalToBag(totalItems));
+    const total = Number(productPrice * totalItems);
+    dispatch(removeCartTotal(total));
+  };
+
   return (
     <CartItemsStyled>
       <CartItemWrapper>
@@ -41,7 +49,11 @@ const Items = ({
               </span>
             </div>
             <div>
-              <i className="fas fa-trash" />
+              <i
+                className="fas fa-trash"
+                onClick={() => handleRemoveItem(product.id, product.total, product.price)}
+                aria-hidden
+              />
             </div>
           </div>
         ))

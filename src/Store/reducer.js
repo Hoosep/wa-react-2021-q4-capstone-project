@@ -2,6 +2,9 @@
 export const ADD_PRODUCT_TO_CART = 'ADD_PRODUCT_TO_CART';
 export const ADD_TOTAL_TO_BAG = 'ADD_TOTAL_TO_BAG';
 export const ADD_CART_TOTAL = 'ADD_CART_TOTAL';
+export const REMOVE_PRODUCT_TO_CART = 'REMOVE_PRODUCT_TO_CART';
+export const REMOVE_TOTAL_TO_BAG = 'REMOVE_TOTAL_TO_BAG';
+export const REMOVE_CART_TOTAL = 'REMOVE_CART_TOTAL';
 
 export const initialState = {
   cart: [],
@@ -18,8 +21,24 @@ export const addTotalToBag = (total) => ({
   type: ADD_TOTAL_TO_BAG,
   total,
 });
+
 export const addCartTotal = (total) => ({
   type: ADD_CART_TOTAL,
+  total,
+});
+
+export const removeProductToCart = (productID) => ({
+  type: REMOVE_PRODUCT_TO_CART,
+  productID,
+});
+
+export const removeTotalToBag = (total) => ({
+  type: REMOVE_TOTAL_TO_BAG,
+  total,
+});
+
+export const removeCartTotal = (total) => ({
+  type: REMOVE_CART_TOTAL,
   total,
 });
 
@@ -57,6 +76,27 @@ export const reducer = (state = initialState, action) => {
     return {
       ...state,
       cartTotal: state.cartTotal + Number(action.total),
+    };
+  }
+
+  if (action.type === REMOVE_PRODUCT_TO_CART) {
+    const newProducts = state.cart.filter((item) => item.id !== action.productID);
+    return {
+      ...state,
+      cart: newProducts,
+    };
+  }
+
+  if (action.type === REMOVE_TOTAL_TO_BAG) {
+    return {
+      ...state,
+      totalBag: state.totalBag - Number(action.total),
+    };
+  }
+  if (action.type === REMOVE_CART_TOTAL) {
+    return {
+      ...state,
+      cartTotal: state.cartTotal - Number(action.total),
     };
   }
 };

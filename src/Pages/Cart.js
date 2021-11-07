@@ -48,11 +48,15 @@ const Search = withRouter((props) => {
           }
         </Col>
       </Row>
-      <Row>
-        <Col>
-          <Button align="right">Proceed to checkout</Button>
-        </Col>
-      </Row>
+      {
+        Array.isArray(cart) && cart.length > 0 && (
+          <Row>
+            <Col>
+              <Button align="right">Proceed to checkout</Button>
+            </Col>
+          </Row>
+        )
+      }
     </Container>
   );
 });
