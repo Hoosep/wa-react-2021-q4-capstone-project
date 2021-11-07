@@ -6,6 +6,7 @@ import { useStore } from 'Store/store';
 import { removeCartTotal, removeProductToCart, removeTotalToBag } from 'Store/reducer';
 // Own styles
 import { CartItemsStyled, CartItemWrapper } from 'Styles/CartItems';
+import Input from 'Styles/Input';
 import { Label } from 'Styles/Typography';
 
 const Items = ({
@@ -19,6 +20,13 @@ const Items = ({
     dispatch(removeTotalToBag(totalItems));
     const total = Number(productPrice * totalItems);
     dispatch(removeCartTotal(total));
+  };
+
+  const handleChangeInput = (event, realStock) => {
+    const { target: { value } } = event;
+
+    console.log('value', value);
+    console.log('realSto', realStock);
   };
 
   return (
@@ -40,7 +48,14 @@ const Items = ({
               </h6>
             </div>
             <div className="item-info">
-              Quantity selector
+              <Input
+                size="sm"
+                defaultValue={product.total}
+                align="center"
+                border
+                fullWidth
+                onChange={(e) => handleChangeInput(e, product.realStock)}
+              />
             </div>
             <div className="item-info">
               <span>

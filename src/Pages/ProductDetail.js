@@ -46,9 +46,12 @@ const ProductDetail = () => {
 
   const handleAddCart = (e) => {
     const { target: { value: quantity } } = e;
-    if (quantity > stockProduct) setNoEnoughStock(true);
-    else setNoEnoughStock(false);
-    setTotalItemsCart(e.target.value);
+    if (quantity > stockProduct) {
+      setNoEnoughStock(true);
+    } else {
+      setNoEnoughStock(false);
+      setTotalItemsCart(e.target.value);
+    }
   };
 
   const handleClickAddToCart = () => {
@@ -58,6 +61,7 @@ const ProductDetail = () => {
         data: {
           name,
           price,
+          stock: realStock,
           mainimage: { url: imageUrl },
           category: { slug: nameCategory },
         },
@@ -68,6 +72,7 @@ const ProductDetail = () => {
         name,
         nameCategory,
         price,
+        realStock,
         total: totalItemsCart,
       };
       dispatch(addProductToCart(product));

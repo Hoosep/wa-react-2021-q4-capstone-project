@@ -50,15 +50,19 @@ const ProductList = () => {
         total_results_size: totalProducts,
       } = productsInfo;
       const productsFormat = productsData.map((item) => {
-        const { data, id } = item;
         const {
-          mainimage, name, price, category,
-        } = data;
-        const { url: imageUrl } = mainimage;
-        const { slug: nameCategory } = category;
+          data: {
+            name,
+            price,
+            stock: realStock,
+            mainimage: { url: imageUrl },
+            category: { slug: nameCategory },
+          },
+          id,
+        } = item;
 
         return {
-          id, name, imageUrl, price, nameCategory,
+          id, name, imageUrl, price, nameCategory, realStock,
         };
       }).filter((item) => {
         if (
@@ -83,7 +87,6 @@ const ProductList = () => {
   };
 
   const handleChangeItemsActivated = (itemsActived) => {
-    console.log('items', itemsActived);
     getProducts(itemsActived);
   };
 
