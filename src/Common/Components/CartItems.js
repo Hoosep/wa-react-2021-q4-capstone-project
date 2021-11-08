@@ -6,6 +6,7 @@ import { useStore } from 'Store/store';
 import {
   removeCartTotal, removeProductToCart, removeTotalToBag,
   showMessageProduct, changeQuantityProduct, sumQuantityBag,
+  getCartTotalBag,
 } from 'Store/reducer';
 // Own styles
 import { CartItemsStyled, CartItemWrapper } from 'Styles/CartItems';
@@ -14,6 +15,7 @@ import { Label } from 'Styles/Typography';
 
 const Items = ({
   items,
+  summary = false,
 }) => {
   const [state, dispatch] = useStore();
   const { cartTotal } = state;
@@ -58,69 +60,94 @@ const Items = ({
       );
 
       dispatch(sumQuantityBag());
+      dispatch(getCartTotalBag());
     }
   };
 
   return (
-    <CartItemsStyled>
-      <CartItemWrapper>
+    <CartItemsStyled summary={summary}>
+      <CartItemWrapper summary={summary}>
         {
         items.map((product) => (
           <div className="item-container" key={product.id}>
-            <div className="item-image">
-              <img src={product.imageUrl} alt={product.name} />
-            </div>
+            {
+              !summary && (
+                <div className="item-image">
+                  <img src={product.imageUrl} alt={product.name} />
+                </div>
+              )
+            }
             <div className="item-info">
               <h5>{product.name}</h5>
             </div>
-            <div className="item-info">
-              <h6>
-                $
-                {product.price}
-              </h6>
-            </div>
-            <div className="item-info quantity">
-              <Input
-                size="sm"
-                type="number"
-                min="1"
-                max={product.realStock}
-                defaultValue={product.total}
-                alignText="center"
-                border
-                fullWidth
-                onChange={(e) => handleChangeInput(e, {
-                  realStock: product.realStock,
-                  total: product.total,
-                  productID: product.id,
-                })}
-              />
-              {
-                product.message && (
-                  <Label className="message">{product.message}</Label>
-                )
-              }
-            </div>
+            {
+              !summary && (
+                <>
+                  <div className="item-info">
+                    <h6>
+                      $
+                      {product.price}
+                    </h6>
+                  </div>
+                  <div className="item-info quantity">
+                    <Input
+                      size="sm"
+                      type="number"
+                      min="1"
+                      max={product.realStock}
+                      defaultValue={product.total}
+                      alignText="center"
+                      border
+                      fullWidth
+                      onChange={(e) => handleChangeInput(e, {
+                        realStock: product.realStock,
+                        total: product.total,
+                        productID: product.id,
+                      })}
+                    />
+                    {
+                      product.message && (
+                        <Label className="message">{product.message}</Label>
+                      )
+                    }
+                  </div>
+                </>
+              )
+            }
+            {
+              summary && (
+                <div className="item-info">
+                  <h6>
+                    {`${product.total} x $${product.price}`}
+                  </h6>
+                </div>
+              )
+            }
             <div className="item-info">
               <span>
                 $
                 {product.price * product.total}
               </span>
             </div>
-            <div>
-              <i
-                className="fas fa-trash"
-                onClick={() => handleRemoveItem(product.id, product.total, product.price)}
-                aria-hidden
-              />
-            </div>
+            {
+              !summary && (
+                <div>
+                  <i
+                    className="fas fa-trash"
+                    onClick={() => handleRemoveItem(product.id, product.total, product.price)}
+                    aria-hidden
+                  />
+                </div>
+              )
+            }
           </div>
         ))
       }
         <div className="item-container">
           <div className="cart-total">
             <Label>
-              Cart total $
+              {summary ? 'Order ' : 'Cart '}
+              total $
               {Number(cartTotal).toFixed(2)}
             </Label>
           </div>

@@ -14,8 +14,11 @@ import Button from 'Common/Components/Button';
 import { useStore } from 'Store/store';
 
 const Cart = withRouter((props) => {
+  const { history } = props;
   const [state] = useStore();
   const { cart, proceedCheckout } = state;
+
+  const handleGoCheckout = () => history.push('/checkout');
 
   return (
     <Container paddingVertical paddingHorizontal fluid>
@@ -50,7 +53,7 @@ const Cart = withRouter((props) => {
         Array.isArray(cart) && cart.length > 0 && (
           <Row>
             <Col>
-              <Button align="right" disabled={!proceedCheckout}>Proceed to checkout</Button>
+              <Button align="right" disabled={!proceedCheckout} onClick={handleGoCheckout}>Proceed to checkout</Button>
             </Col>
           </Row>
         )

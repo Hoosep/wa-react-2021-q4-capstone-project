@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
 export const CartItemsStyled = styled.div`
+  ${(props) => (props.summary ? `
+    max-width: 90%;
+    margin: 0 auto;
+  ` : '')}
 `;
 
 export const CartItemWrapper = styled.section`
@@ -18,7 +22,11 @@ export const CartItemWrapper = styled.section`
     justify-content: space-between;
     align-items: center;
     background-color: #FFF;
-    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.25);
+    ${(props) => (props.summary ? `
+      box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.95);
+    ` : `
+      box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.25);
+    `)}
 
     @media (max-width: 768px) {
       padding: 0 0.5rem;

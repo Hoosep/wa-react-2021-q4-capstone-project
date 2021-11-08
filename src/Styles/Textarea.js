@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
-const InputStyled = styled.input`
+const TextareaStyled = styled.textarea`
   box-sizing: border-box;
   font-size: 16px;
   border: none;
+  resize: none;
   ${(props) => (props.size === 'sm' && `
     padding: 0.4rem 0.5rem;
   `)}
@@ -28,4 +29,4 @@ const InputStyled = styled.input`
   `)}
 `;
 
-export default InputStyled;
+export default TextareaStyled;

@@ -8,6 +8,7 @@ export const REMOVE_CART_TOTAL = 'REMOVE_CART_TOTAL';
 export const SHOW_MESSAGE_PRODUCT = 'SHOW_MESSAGE_PRODUCT';
 export const CHANGE_QUANTITY_PRODUCT = 'CHANGE_QUANTITY_PRODUCT';
 export const SUM_QUANTITY_BAG = 'SUM_QUANTITY_BAG';
+export const GET_CART_TOTAL_BAG = 'GET_TOTAL_BAG';
 
 export const initialState = {
   cart: [],
@@ -61,6 +62,11 @@ export const changeQuantityProduct = ({ quantity, productID }) => ({
 export const sumQuantityBag = () => ({
   type: SUM_QUANTITY_BAG,
 });
+
+export const getCartTotalBag = () => ({
+  type: GET_CART_TOTAL_BAG,
+});
+
 export const reducer = (state = initialState, action) => {
   if (action.type === ADD_PRODUCT_TO_CART) {
     if (Array.isArray(state.cart) && state.cart.length > 0) {
@@ -169,6 +175,17 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         totalBag,
+      };
+    }
+  }
+  if (action.type === GET_CART_TOTAL_BAG) {
+    if (Array.isArray(state.cart) && state.cart.length > 0) {
+      const cartTotal = state.cart
+        .map((item) => item.total * item.price)
+        .reduce((prev, curr) => prev + curr, 0);
+      return {
+        ...state,
+        cartTotal,
       };
     }
   }
