@@ -8,6 +8,8 @@ import Home from 'Pages/Home';
 import ProductList from 'Pages/ProductList';
 import ProductDetail from 'Pages/ProductDetail';
 import Search from 'Pages/Search';
+import Cart from 'Pages/Cart';
+import Checkout from 'Pages/Checkout';
 
 function App() {
   return (
@@ -46,6 +48,20 @@ function App() {
             exact
             render={(props) => (
               <ProductList {...props} />
+            )}
+          />
+          <Route
+            path="/cart"
+            exact
+            render={(props) => (
+              <Cart {...props} />
+            )}
+          />
+          <Route
+            path="/checkout"
+            exact
+            render={(props) => (
+              <Checkout {...props} />
             )}
           />
           <Route

@@ -60,7 +60,7 @@ const Home = withRouter((props) => {
   return (
     <>
       <Slider />
-      <Carousel title="Categories" heading="Example Slider" slides={carouselData} />
+      <Carousel title="Categories" heading="Example Slider" slides={carouselData} isLoading={isLoadingCarousel} />
       <Products title="Featured Products" products={featuredProductsData} loading={isLoadingFeaturedProducts} />
       <Button align="center" spaceBottom="lg" onClick={(e) => handleClickPage(e)}>View all products</Button>
     </>

@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 
 // Own styles
 import { CarouselStyled, CarouselBrackground } from 'Styles/Carousel';
+import { SkeletonProducts } from 'Common/Components/Skeletons/Products';
+
 import Col from 'Styles/Layouts/Col';
 import Container from 'Styles/Layouts/Container';
 import Row from 'Styles/Layouts/Row';
@@ -12,7 +14,9 @@ import { Title } from 'Styles/Typography';
 // Own Components
 import Item from './Item';
 
-const Carousel = ({ heading, title, slides }) => {
+const Carousel = ({
+  heading, title, slides, isLoading,
+}) => {
   const [current, setCurrent] = useState(2);
   const headingId = `slider-heading__${heading.replace(/\s+/g, '-').toLowerCase()}`;
   const wrapperTransform = {
@@ -54,6 +58,7 @@ const Carousel = ({ heading, title, slides }) => {
           </Col>
         </Row>
       </Container>
+      {!isLoading && (
       <CarouselStyled>
         <div className="carousel-container" style={wrapperTransform}>
           <h3 id={headingId} className="visuallyhidden">{heading}</h3>
@@ -68,6 +73,8 @@ const Carousel = ({ heading, title, slides }) => {
           ))}
         </div>
       </CarouselStyled>
+      )}
+      {isLoading && <SkeletonProducts fullWidth />}
     </CarouselBrackground>
   );
 };

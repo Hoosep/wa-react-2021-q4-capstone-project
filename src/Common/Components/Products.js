@@ -6,6 +6,11 @@ import { withRouter } from 'react-router-dom';
 import { ProductsStyled, ProductsWrapper } from 'Styles/Products';
 import { Title } from 'Styles/Typography';
 import { SkeletonProducts } from 'Common/Components/Skeletons/Products';
+
+// Store
+import { useStore } from 'Store/store';
+import { addProductToCart, addTotalToBag, addCartTotal } from 'Store/reducer';
+
 // Own components
 import Pagination from './Pagination';
 import Button from './Button';
@@ -14,6 +19,9 @@ const Products = withRouter(({
   title, products, pagination, loading, history, fromSearch,
 }) => {
   const [showNoResults, setShowNoResults] = useState(false);
+  const [state, dispatch] = useStore();
+  const { cart } = state;
+
   const handleGoTo = (productID) => {
     history.push(`/product/${productID}`);
   };
@@ -23,6 +31,17 @@ const Products = withRouter(({
       setShowNoResults(true);
     }
   }, [products]);
+
+  const handleClickAddCart = (item) => {
+    const product = {
+      ...item,
+      total: 1,
+    };
+
+    dispatch(addProductToCart(product));
+    dispatch(addCartTotal(product.price));
+    dispatch(addTotalToBag(1));
+  };
 
   return (
     <ProductsStyled fromSearch={fromSearch}>
@@ -62,7 +81,7 @@ const Products = withRouter(({
                   </div>
                 </div>
                 <div className="product-purchase">
-                  <Button align="center" spaceTop="sm" fullWidth>Add to cart</Button>
+                  <Button align="center" spaceTop="sm" fullWidth onClick={() => handleClickAddCart(product)}>Add to cart</Button>
                 </div>
               </div>
             ))

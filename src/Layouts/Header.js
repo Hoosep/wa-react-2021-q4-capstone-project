@@ -11,6 +11,8 @@ import { HeaderStyled } from 'Styles/Layouts/Header';
 // Own assets
 import Logo from 'Common/Images/logo.png';
 
+const menuPages = ['home', 'products'];
+
 const Header = withRouter((props) => {
   const { history } = props;
   const [navVisible, setNavVisible] = useState(false);
@@ -27,9 +29,11 @@ const Header = withRouter((props) => {
 
   const handleClickPage = (e, page) => {
     e.preventDefault();
-    history.push(`/${page}`);
-    setPageActive(page);
-    setNavVisible(false);
+    if (menuPages.includes(page)) {
+      history.push(`/${page}`);
+      setPageActive(page);
+      setNavVisible(false);
+    }
   };
 
   return (

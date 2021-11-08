@@ -80,13 +80,13 @@ export const Label = styled.label`
         margin-bottom: 2.2rem;
     `}
     ${(props) => props.marginTop === 'sm' && `
-        margin-bottom: 1.2rem;
+        margin-top: 1.2rem;
     `}
     ${(props) => props.marginTop === 'md' && `
-        margin-bottom: 1.8rem;
+        margin-top: 1.8rem;
     `}
     ${(props) => props.marginTop === 'lg' && `
-        margin-bottom: 2.2rem;
+        margin-top: 2.2rem;
     `}
     line-height: 1;
     text-align: left;
@@ -100,4 +100,17 @@ export const Paragraph = styled.p`
     line-height: 24px;
     margin: 0 0 14px;
     text-align: justify;
+
+    a {
+        font-family: 'Titillium Web',sans-serif;
+        font-weight: 700;
+        text-decoration: none;
+        &:visited {
+            color: #565656;
+        }
+
+        &:hover {
+            color: #000;
+        }
+    }
 `;

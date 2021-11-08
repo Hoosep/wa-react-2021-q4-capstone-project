@@ -46,10 +46,17 @@ const loading = keyframes`
 
 export const SkeletonProductsStyled = styled.div`
   height: ${cardHeight};
-  padding: 2%;
-  margin: 5px;
-  width: 45%;
-  display: inline-block;
+
+  ${(props) => (props.fullWidth ? `
+    display: block;
+    width: 100%;
+    margin: 0;
+  ` : `
+    display: inline-block;
+    width: 45%;
+    padding: 2%;
+    margin: 5px;
+  `)}
 
   &:empty::after {
     content:"";
