@@ -3,7 +3,10 @@ import React from 'react';
 
 // Store
 import { useStore } from 'Store/store';
-import { removeCartTotal, removeProductToCart, removeTotalToBag } from 'Store/reducer';
+import {
+  removeCartTotal, removeProductToCart, removeTotalToBag,
+  showMessageProduct, changeQuantityProduct, sumQuantityBag,
+} from 'Store/reducer';
 // Own styles
 import { CartItemsStyled, CartItemWrapper } from 'Styles/CartItems';
 import Input from 'Styles/Input';
@@ -22,11 +25,40 @@ const Items = ({
     dispatch(removeCartTotal(total));
   };
 
-  const handleChangeInput = (event, realStock) => {
+  const handleChangeInput = (event, { productID, realStock, total }) => {
     const { target: { value } } = event;
+    if (value < 1) {
+      dispatch(
+        showMessageProduct({
+          message: 'Must be at least 1 item.',
+          productID,
+        }),
+      );
+      return;
+    }
+    if (value > realStock) {
+      dispatch(
+        showMessageProduct({
+          message: `No enough stock. Availables ${realStock}`,
+          productID,
+        }),
+      );
+    } else {
+      dispatch(
+        showMessageProduct({
+          message: null,
+          productID,
+        }),
+      );
+      dispatch(
+        changeQuantityProduct({
+          quantity: value,
+          productID,
+        }),
+      );
 
-    console.log('value', value);
-    console.log('realSto', realStock);
+      dispatch(sumQuantityBag());
+    }
   };
 
   return (
@@ -47,15 +79,27 @@ const Items = ({
                 {product.price}
               </h6>
             </div>
-            <div className="item-info">
+            <div className="item-info quantity">
               <Input
                 size="sm"
+                type="number"
+                min="1"
+                max={product.realStock}
                 defaultValue={product.total}
-                align="center"
+                alignText="center"
                 border
                 fullWidth
-                onChange={(e) => handleChangeInput(e, product.realStock)}
+                onChange={(e) => handleChangeInput(e, {
+                  realStock: product.realStock,
+                  total: product.total,
+                  productID: product.id,
+                })}
               />
+              {
+                product.message && (
+                  <Label className="message">{product.message}</Label>
+                )
+              }
             </div>
             <div className="item-info">
               <span>

@@ -19,7 +19,8 @@ const Products = withRouter(({
   title, products, pagination, loading, history, fromSearch,
 }) => {
   const [showNoResults, setShowNoResults] = useState(false);
-  const [, dispatch] = useStore();
+  const [state, dispatch] = useStore();
+  const { cart } = state;
 
   const handleGoTo = (productID) => {
     history.push(`/product/${productID}`);

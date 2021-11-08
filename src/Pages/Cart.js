@@ -13,12 +13,10 @@ import Button from 'Common/Components/Button';
 // Store
 import { useStore } from 'Store/store';
 
-const Search = withRouter((props) => {
-  const [results, setResults] = useState([]);
+const Cart = withRouter((props) => {
   const [state] = useStore();
-  const { cart } = state;
+  const { cart, proceedCheckout } = state;
 
-  console.log('state', state);
   return (
     <Container paddingVertical paddingHorizontal fluid>
       <Row>
@@ -52,7 +50,7 @@ const Search = withRouter((props) => {
         Array.isArray(cart) && cart.length > 0 && (
           <Row>
             <Col>
-              <Button align="right">Proceed to checkout</Button>
+              <Button align="right" disabled={!proceedCheckout}>Proceed to checkout</Button>
             </Col>
           </Row>
         )
@@ -61,4 +59,4 @@ const Search = withRouter((props) => {
   );
 });
 
-export default Search;
+export default Cart;

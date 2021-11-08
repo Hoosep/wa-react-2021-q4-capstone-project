@@ -13,13 +13,13 @@ const InputStyled = styled.input`
   ${(props) => (props.fullWidth && `
     width: 100%;
   `)}
-  ${(props) => (props.align === 'center' && `
+  ${(props) => (props.alignText === 'center' && `
     text-align: center;
   `)}
-  ${(props) => (props.align === 'right' && `
+  ${(props) => (props.alignText === 'right' && `
     text-align: right;
   `)}
-  ${(props) => (props.align === 'left' && `
+  ${(props) => (props.alignText === 'left' && `
     text-align: left;
   `)}
   
