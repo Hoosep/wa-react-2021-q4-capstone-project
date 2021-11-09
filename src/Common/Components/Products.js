@@ -18,19 +18,12 @@ import Button from './Button';
 const Products = withRouter(({
   title, products, pagination, loading, history, fromSearch,
 }) => {
-  const [showNoResults, setShowNoResults] = useState(false);
   const [state, dispatch] = useStore();
   const { cart } = state;
 
   const handleGoTo = (productID) => {
     history.push(`/product/${productID}`);
   };
-
-  useEffect(() => {
-    if (!Array.isArray(products) && products.length === 0) {
-      setShowNoResults(true);
-    }
-  }, [products]);
 
   const handleClickAddCart = (item) => {
     const product = {
@@ -62,7 +55,7 @@ const Products = withRouter(({
           )}
         </div>
         <ProductsWrapper>
-          {!showNoResults && (
+          {products.length > 0 && (
             products.map((product) => (
               <div className={`product-card ${fromSearch ? 'search' : ''}`} key={product.id}>
                 <div className="fake-link" onClick={() => handleGoTo(product.id)} aria-hidden>
@@ -86,7 +79,7 @@ const Products = withRouter(({
               </div>
             ))
           )}
-          {showNoResults && 'No results founded.'}
+          {products.length === 0 && 'No results founded.'}
         </ProductsWrapper>
         {pagination && (
           <Pagination
