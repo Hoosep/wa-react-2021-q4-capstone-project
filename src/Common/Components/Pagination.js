@@ -38,7 +38,7 @@ const Pagination = ({
         currentPage !== 1 && (
           <div
             className="page arrow"
-            onClick={() => handleClick(1)}
+            onClick={() => handleClick(currentPage - 1)}
             aria-hidden="true"
           >
             &lt;
@@ -63,7 +63,7 @@ const Pagination = ({
         currentPage !== totalPages && (
           <div
             className="page arrow"
-            onClick={() => handleClick(totalPages)}
+            onClick={() => handleClick(currentPage + 1)}
             aria-hidden="true"
           >
             &gt;
