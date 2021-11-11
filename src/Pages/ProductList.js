@@ -8,7 +8,7 @@ import { ProductListStyled } from 'Styles/ProductsList';
 // Own components
 import Sidebar from 'Common/Components/Sidebar';
 import Products from 'Common/Components/Products';
-import Loader from 'Common/Components/Loader';
+import Notification from 'Common/Components/Notification';
 
 // Hooks
 import { useProducts } from 'utils/hooks/useProducts';
@@ -19,6 +19,7 @@ const ProductList = () => {
   const [actualPage, setActualPage] = useState(1);
   const { isLoading: isLoadingProducts, data: productsInfo } = useProducts(12, actualPage);
   const [itemsSidebar, setItemsSidebar] = useState([]);
+  const [showNotification, setShowNotification] = useState(false);
   const [products, setProducts] = useState([]);
   const [pagination, setPagination] = useState({});
   const productListRef = useRef();
@@ -90,6 +91,21 @@ const ProductList = () => {
     getProducts(itemsActived);
   };
 
+  const handleNotification = (text) => setShowNotification(true);
+
+  useEffect(() => {
+    if (showNotification) {
+      const timeout = setTimeout(() => {
+        setShowNotification(false);
+      }, 3000);
+
+      return () => {
+        clearTimeout(timeout);
+      };
+    }
+    return null;
+  }, [showNotification]);
+
   useEffect(() => {
     const { results: categories } = categoriesData;
 
@@ -111,17 +127,26 @@ const ProductList = () => {
   }, [productsInfo]);
 
   return (
-    <ProductListStyled ref={productListRef}>
-      <Sidebar
-        items={itemsSidebar}
-        onChange={handleChangeItemsActivated}
-      />
-      <div className="content-product-list">
-        <div className="container-product-list">
-          <Products products={products} title="Products" loading={isLoadingProducts} pagination={pagination} />
+    <>
+      <Notification text="Added to cart." seconds={5} show={showNotification} />
+      <ProductListStyled ref={productListRef}>
+        <Sidebar
+          items={itemsSidebar}
+          onChange={handleChangeItemsActivated}
+        />
+        <div className="content-product-list">
+          <div className="container-product-list">
+            <Products
+              products={products}
+              title="Products"
+              loading={isLoadingProducts}
+              pagination={pagination}
+              showNotification={handleNotification}
+            />
+          </div>
         </div>
-      </div>
-    </ProductListStyled>
+      </ProductListStyled>
+    </>
   );
 };
 
