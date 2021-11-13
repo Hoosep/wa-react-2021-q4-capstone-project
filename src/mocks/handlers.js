@@ -6,6 +6,9 @@ import { rest } from 'msw';
 import { API_BASE_URL } from 'utils/constants';
 
 import productCategories from './en-us/product-categories.json';
+import featuredProducts from './en-us/featured-products.json';
+import featuredBanners from './en-us/featured-banners.json';
+import products from './en-us/products.json';
 
 const apiRef = 'asdasdasads';
 
@@ -15,17 +18,56 @@ export const handlers = [
     return res(
       ctx.status(200),
       ctx.json({
-        ref: apiRef,
-        isLoading: false,
+        refs: [
+          {
+            ref: apiRef,
+          },
+        ],
       })
       ,
     );
   }),
   rest.get(`${API_BASE_URL}/documents/search`, (req, res, ctx) => {
-    console.log('Segundo se manda a llamar');
+    const query = req.url.searchParams;
+    const ref = query.get('ref');
+    const allQ = query.getAll('q');
+    const lang = query.get('lang');
+    const pageSize = query.get('pageSize');
+
+    if (allQ.includes('[[at(document.type, "banner")]]')) {
+      return res(
+        ctx.status(200),
+        ctx.json(featuredBanners),
+      );
+    }
+
+    if (
+      allQ.includes('[[at(document.type, "product")]]')
+      && allQ.includes('[[at(document.tags, ["Featured"])]]')) {
+      return res(
+        ctx.status(200),
+        ctx.json(featuredProducts),
+      );
+    }
+    if (allQ.includes('[[at(document.type, "category")]]')) {
+      return res(
+        ctx.status(200),
+        ctx.json(productCategories),
+      );
+    }
+
+    console.log('hey!');
+    if (allQ.includes('[[at(document.type, "product")]]')) {
+      console.log('hi');
+      return res(
+        ctx.status(200),
+        ctx.json(products),
+      );
+    }
+
     return res(
       ctx.status(200),
-      ctx.json(productCategories),
+      ctx.json({}),
     );
   }),
 ];
