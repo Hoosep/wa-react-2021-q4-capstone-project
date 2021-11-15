@@ -10,7 +10,6 @@ export function useProducts(pageSize = 30, page = 1) {
   }));
 
   useEffect(() => {
-    console.log('APIREF', apiRef);
     if (!apiRef || isApiMetadataLoading) {
       return () => {};
     }

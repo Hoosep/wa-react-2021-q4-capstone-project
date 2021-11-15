@@ -33,6 +33,7 @@ export const handlers = [
     const allQ = query.getAll('q');
     const lang = query.get('lang');
     const pageSize = query.get('pageSize');
+    const page = query.get('page');
 
     if (allQ.includes('[[at(document.type, "banner")]]')) {
       return res(
@@ -56,12 +57,16 @@ export const handlers = [
       );
     }
 
-    console.log('hey!');
     if (allQ.includes('[[at(document.type, "product")]]')) {
-      console.log('hi');
+      let response = products;
+      response = {
+        ...response,
+        page: Number(page),
+        total_pages: Math.ceil(response.total_results_size / pageSize),
+      };
       return res(
         ctx.status(200),
-        ctx.json(products),
+        ctx.json(response),
       );
     }
 
