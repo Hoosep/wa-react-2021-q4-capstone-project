@@ -1,14 +1,13 @@
 /* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import {
   render, fireEvent, waitFor, screen,
 } from '@testing-library/react';
-import { renderHook, act } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react-hooks';
 import '@testing-library/jest-dom';
 // Store Provider
 import { StoreProvider } from 'Store/store';
@@ -30,7 +29,7 @@ beforeEach(async () => {
   dataProducts = result.current;
 });
 describe('<Product />', () => {
-  /* test('Fetching and data', async () => {
+  test('Fetching and data', async () => {
     const { container } = render(
       <StoreProvider initialState={initialState} reducer={reducer}>
         <Router>
@@ -38,7 +37,7 @@ describe('<Product />', () => {
         </Router>
       </StoreProvider>,
     );
-  }); */
+  });
   test('Pagination Controls are generated correctly based on the number of results fetched from the API and the maximum number of products per page', async () => {
     const {
       data: {
