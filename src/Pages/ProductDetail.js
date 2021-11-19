@@ -22,6 +22,7 @@ import Table from 'Common/Components/Table';
 import Input from 'Styles/Input';
 import Button from 'Common/Components/Button';
 import { SkeletonProducts } from 'Common/Components/Skeletons/Products';
+import Notification from 'Common/Components/Notification';
 
 // Store
 import { useStore } from 'Store/store';
@@ -31,6 +32,7 @@ const ProductDetail = () => {
   const { id } = useParams();
   const [imagesSwiper, setImagesSwiper] = useState(null);
   const [stockProduct, setStockProduct] = useState(0);
+  const [showNotification, setShowNotification] = useState(false);
   const [totalItemsCart, setTotalItemsCart] = useState('');
   const [noEnoughStock, setNoEnoughStock] = useState(false);
   const { isLoading: isLoadingProduct, data: dataProduct } = useProductID(id);
@@ -81,11 +83,26 @@ const ProductDetail = () => {
       dispatch(addCartTotal(sumTotal));
       setStockProduct(Number(stockProduct - totalItemsCart));
       setTotalItemsCart('');
+      setShowNotification(true);
     }
   };
 
+  useEffect(() => {
+    if (showNotification) {
+      const timeout = setTimeout(() => {
+        setShowNotification(false);
+      }, 3000);
+
+      return () => {
+        clearTimeout(timeout);
+      };
+    }
+    return null;
+  }, [showNotification]);
+
   return (
     <>
+      <Notification text="Added to cart." seconds={5} show={showNotification} />
       <ThumbsGallery images={imagesSwiper} isLoading={isLoadingProduct} />
       <Container fluid secondary paddingVertical paddingHorizontal>
         {!isLoadingProduct && dataProduct && dataProduct.hasOwnProperty('id') && (

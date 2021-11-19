@@ -24,7 +24,7 @@ export function useQuery(searchTerm, page) {
             '[[at(document.type, "product")]]',
           )}&q=${encodeURIComponent(
             `[[fulltext(document, "${searchTerm}")]]`,
-          )}&lang=en-us&pageSize=20&page=${page}`,
+          )}&lang=en-us&pageSize=5&page=${page}`,
           {
             signal: controller.signal,
           },
@@ -42,7 +42,7 @@ export function useQuery(searchTerm, page) {
     return () => {
       controller.abort();
     };
-  }, [apiRef, isApiMetadataLoading]);
+  }, [apiRef, isApiMetadataLoading, searchTerm, page]);
 
   return results;
 }
