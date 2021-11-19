@@ -88,7 +88,6 @@ const ProductList = () => {
   };
 
   const handleChangeItemsActivated = (itemsActived) => {
-
     getProducts(itemsActived);
   };
 
