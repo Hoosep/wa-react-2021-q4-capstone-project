@@ -16,13 +16,13 @@ const SearchInput = withRouter((props) => {
       if (which === 13) {
         if (searchTerm) {
           history.push(`/search?q=${searchTerm}`);
-          history.go(0);
+          // history.go(0);
         }
       }
     } else if (type === 'blur') {
       if (searchTerm) {
         history.push(`/search?q=${searchTerm}`);
-        history.go(0);
+        // history.go(0);
       }
     }
   };

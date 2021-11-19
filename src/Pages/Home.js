@@ -9,6 +9,7 @@ import { useFeaturedProducts } from 'utils/hooks/useFeaturedProducts';
 import Slider from 'Common/Components/Slider';
 import Carousel from 'Common/Components/Carousel';
 import Products from 'Common/Components/Products';
+import Notification from 'Common/Components/Notification';
 import Button from 'Common/Components/Button';
 
 const Home = withRouter((props) => {
@@ -16,6 +17,7 @@ const Home = withRouter((props) => {
 
   const [carouselData, setCarouselData] = useState([]);
   const [featuredProductsData, setFeaturedProductsData] = useState([]);
+  const [showNotification, setShowNotification] = useState(false);
   const { isLoading: isLoadingFeaturedProducts, data: featuredProducts } = useFeaturedProducts(16);
   const { isLoading: isLoadingCarousel, data: categoriesData } = useCategories();
 
@@ -40,12 +42,19 @@ const Home = withRouter((props) => {
 
     if (productsData && Array.isArray(productsData)) {
       const getProducts = productsData.map((item) => {
-        const { data, id } = item;
-        const { mainimage, name, price } = data;
-        const { url: imageUrl } = mainimage;
+        const {
+          data: {
+            name,
+            price,
+            stock: realStock,
+            mainimage: { url: imageUrl },
+            category: { slug: nameCategory },
+          },
+          id,
+        } = item;
 
         return {
-          id, name, price, imageUrl,
+          id, name, imageUrl, price, nameCategory, realStock,
         };
       });
       setFeaturedProductsData(getProducts);
@@ -57,11 +66,32 @@ const Home = withRouter((props) => {
     history.push('/products');
   };
 
+  const handleNotification = (text) => setShowNotification(true);
+
+  useEffect(() => {
+    if (showNotification) {
+      const timeout = setTimeout(() => {
+        setShowNotification(false);
+      }, 3000);
+
+      return () => {
+        clearTimeout(timeout);
+      };
+    }
+    return null;
+  }, [showNotification]);
+
   return (
     <>
+      <Notification text="Added to cart." seconds={5} show={showNotification} />
       <Slider />
       <Carousel title="Categories" heading="Example Slider" slides={carouselData} isLoading={isLoadingCarousel} />
-      <Products title="Featured Products" products={featuredProductsData} loading={isLoadingFeaturedProducts} />
+      <Products
+        title="Featured Products"
+        products={featuredProductsData}
+        loading={isLoadingFeaturedProducts}
+        showNotification={handleNotification}
+      />
       <Button align="center" spaceBottom="lg" onClick={(e) => handleClickPage(e)}>View all products</Button>
     </>
   );
