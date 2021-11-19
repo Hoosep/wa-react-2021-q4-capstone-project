@@ -78,7 +78,7 @@ const disappearTranslate = keyframes`
 `;
 
 const NotificationStyled = styled.div`
-  position: absolute;
+  position: fixed;
   padding: 1.5rem;
   background-color: #101118;
   font-family: 'Mukta',sans-serif;
