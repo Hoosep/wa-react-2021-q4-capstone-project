@@ -11,6 +11,7 @@ import Row from 'Styles/Layouts/Row';
 import Col from 'Styles/Layouts/Col';
 import { Title } from 'Styles/Typography';
 import Products from 'Common/Components/Products';
+import Notification from 'Common/Components/Notification';
 // Own styles
 import { ProductListStyled } from 'Styles/ProductsList';
 
@@ -19,6 +20,7 @@ const Search = withRouter((props) => {
   const [results, setResults] = useState([]);
   const [actualPage, setActualPage] = useState(1);
   const [pagination, setPagination] = useState({});
+  const [showNotification, setShowNotification] = useState(false);
   const query = useQueryParams();
   const word = query.get('q');
 
@@ -30,7 +32,7 @@ const Search = withRouter((props) => {
     setActualPage(page);
   };
 
-  const getResults = (itemsActived) => {
+  const getResults = () => {
     const { results: productsData } = productsInfo;
 
     if (productsData && Array.isArray(productsData)) {
@@ -50,14 +52,6 @@ const Search = withRouter((props) => {
         return {
           id, name, imageUrl, price, nameCategory,
         };
-      }).filter((item) => {
-        if (
-          Array.isArray(itemsActived)
-          && itemsActived.length > 0) {
-          return itemsActived.includes(item.nameCategory);
-        }
-        // If we don't items active we filter all.
-        return true;
       });
       setResults(productsFormat);
       setPagination({
@@ -68,33 +62,61 @@ const Search = withRouter((props) => {
       });
     }
   };
+
   useEffect(() => {
-    getResults();
-  }, [productsInfo, word]);
+    if (Object.keys(productsInfo).length > 0) {
+      getResults();
+    }
+  }, [productsInfo]);
+
+  const handleNotification = () => setShowNotification(true);
+
+  useEffect(() => {
+    if (showNotification) {
+      const timeout = setTimeout(() => {
+        setShowNotification(false);
+      }, 3000);
+
+      return () => {
+        clearTimeout(timeout);
+      };
+    }
+    return null;
+  }, [showNotification]);
 
   return (
-    <Container paddingVertical paddingHorizontal fluid>
-      <Row>
-        <Col>
-          <Title>
-            Search:
-            {' '}
-            {word}
-          </Title>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <ProductListStyled>
-            <div className="content-product-list">
-              <div className="container-product-list">
-                <Products products={results} title="Products" loading={isLoadingProducts} pagination={pagination} fromSearch />
+    <>
+      <Notification text="Added to cart." seconds={5} show={showNotification} />
+      <Container paddingVertical paddingHorizontal fluid>
+        <Row>
+          <Col>
+            <Title>
+              Search:
+              {' '}
+              {word}
+            </Title>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <ProductListStyled>
+              <div className="content-product-list">
+                <div className="container-product-list">
+                  <Products
+                    products={results}
+                    title="Products"
+                    loading={isLoadingProducts}
+                    pagination={pagination}
+                    showNotification={handleNotification}
+                    fromSearch
+                  />
+                </div>
               </div>
-            </div>
-          </ProductListStyled>
-        </Col>
-      </Row>
-    </Container>
+            </ProductListStyled>
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 });
 

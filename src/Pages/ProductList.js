@@ -88,6 +88,7 @@ const ProductList = () => {
   };
 
   const handleChangeItemsActivated = (itemsActived) => {
+    console.log('itemsAct', itemsActived);
     getProducts(itemsActived);
   };
 
