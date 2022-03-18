@@ -23,7 +23,6 @@ const Home = withRouter((props) => {
 
   useEffect(() => {
     const { results: categories } = categoriesData;
-
     if (categories && Array.isArray(categories)) {
       const getSlides = categories.map((item, index) => {
         const { id } = item;

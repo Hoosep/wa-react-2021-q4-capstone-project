@@ -18,7 +18,7 @@ export function useCategories() {
 
     async function getCategories() {
       try {
-        setCategories({ data: {}, isLoading: true });
+        // setCategories({ data: {}, isLoading: true });
         const response = await fetch(
           `${API_BASE_URL}/documents/search?ref=${apiRef}&q=${encodeURIComponent(
             '[[at(document.type, "category")]]',
@@ -28,7 +28,6 @@ export function useCategories() {
           },
         );
         const data = await response.json();
-
         setCategories({ data, isLoading: false });
       } catch (err) {
         setCategories({ data: {}, isLoading: false });
